@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Ludovic Monsorez</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --warm-white:#fdf8f2; --cream:#f5ead8; --croissant:#c8853a;
+  --croissant-lt:#e8aa68; --caramel:#a05c1a; --butter:#f0d49a;
+  --choco:#5a3010; --text:#3a2408; --text-mid:#7a5530;
+  --text-dim:rgba(58,36,8,0.50);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--warm-white);color:var(--text);font-family:'Poppins',sans-serif;overflow-x:hidden;cursor:none;min-height:100vh;}
+
+#whisk-cursor{position:fixed;pointer-events:none;z-index:9999;width:40px;height:84px;left:-200px;top:-200px;transform:translate(-50%,-8px);}
+body.cursor-hover #whisk-cursor{filter:drop-shadow(0 3px 8px rgba(200,133,58,0.55));}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:12px 60px;background:rgba(253,248,242,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(200,133,58,0.18);box-shadow:0 2px 24px rgba(90,48,16,0.07);animation:fadeDown 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s both;}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+.nav-logo{text-decoration:none;display:flex;align-items:center;flex-shrink:0;}
+.nav-logo-img{height:90px;width:auto;object-fit:contain;display:block;transition:transform 0.35s cubic-bezier(0.22,1,0.36,1),filter 0.35s ease;filter:drop-shadow(0 2px 6px rgba(90,48,16,0.10));}
+.nav-logo-img:hover{transform:scale(1.05) translateY(-2px);filter:drop-shadow(0 6px 16px rgba(200,133,58,0.28));}
+.nav-links{display:flex;align-items:center;gap:10px;list-style:none;}
+.nav-links a{position:relative;font-size:0.82rem;font-weight:600;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-mid);text-decoration:none;padding:8px 14px;border-radius:4px;transition:color 0.28s ease,background 0.28s ease;}
+.nav-links a::after{content:'';position:absolute;bottom:4px;left:14px;width:0;height:1.5px;background:linear-gradient(to right,var(--croissant),var(--croissant-lt));border-radius:2px;transition:width 0.35s cubic-bezier(0.22,1,0.36,1);}
+.nav-links a:hover{color:var(--croissant);}
+.nav-links a:hover::after{width:calc(100% - 28px);}
+.nav-links a.active{color:var(--croissant);}
+.nav-links a.active::after{width:calc(100% - 28px);}
+.nav-links li:last-child a{background:var(--croissant);color:#fff;padding:8px 20px;border-radius:20px;letter-spacing:0.07em;box-shadow:0 3px 12px rgba(200,133,58,0.28);transition:background 0.28s ease,transform 0.22s ease,box-shadow 0.28s ease;}
+.nav-links li:last-child a::after{display:none;}
+.nav-links li:last-child a:hover{background:var(--caramel);transform:translateY(-2px);box-shadow:0 6px 20px rgba(200,133,58,0.38);color:#fff;}
+.nav-links li:last-child a.active{background:var(--caramel);color:#fff;}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;color:var(--choco);border-radius:6px;transition:background 0.2s;}
+.nav-toggle:hover{background:rgba(200,133,58,0.10);}
+.nav-toggle svg{display:block;}
+
+.page-banner{padding-top:114px;background:linear-gradient(135deg,var(--warm-white) 0%,var(--cream) 60%,var(--butter) 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:260px;text-align:center;}
+.page-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 90% 50%,rgba(240,212,154,0.4) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 10% 60%,rgba(200,133,58,0.07) 0%,transparent 70%);pointer-events:none;}
+.pb-blob{position:absolute;border-radius:50%;pointer-events:none;animation:floatB 8s ease-in-out infinite;}
+.pb-blob.b1{width:220px;height:220px;background:var(--butter);opacity:0.18;top:-60px;right:8%;}
+.pb-blob.b2{width:120px;height:120px;background:var(--croissant-lt);opacity:0.14;bottom:-20px;left:12%;animation-delay:3s;}
+@keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+.banner-inner{position:relative;z-index:2;animation:slideUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.2s both;}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.page-eyebrow{font-size:0.70rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--croissant);margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:10px;}
+.page-eyebrow::before,.page-eyebrow::after{content:'';display:inline-block;width:28px;height:1.5px;background:var(--croissant);}
+.page-title{font-weight:800;font-size:clamp(2rem,4vw,3.2rem);color:var(--choco);line-height:1.1;}
+.page-title em{font-style:italic;font-weight:300;color:var(--croissant);}
+.page-sub{font-size:0.95rem;font-weight:300;color:var(--text-mid);margin-top:14px;max-width:480px;line-height:1.7;}
+
+.slide-left{opacity:0;transform:translateX(-55px);transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1),transform 0.9s cubic-bezier(0.22,1,0.36,1);}
+.slide-right{opacity:0;transform:translateX(55px);transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1),transform 0.9s cubic-bezier(0.22,1,0.36,1);}
+.slide-left.visible,.slide-right.visible{opacity:1;transform:translateX(0);}
+
+.contact-page{display:grid;grid-template-columns:1fr 1.35fr;min-height:calc(100vh - 260px);}
+
+.cpanel-left{background:var(--choco);padding:64px 52px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.cpanel-left::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 100% 60% at -10% 100%,rgba(200,133,58,0.15) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 100% 0%,rgba(200,133,58,0.08) 0%,transparent 60%);}
+.chef-portrait{width:100px;height:100px;border-radius:50%;overflow:hidden;border:3px solid rgba(200,133,58,0.4);box-shadow:0 0 0 6px rgba(200,133,58,0.12);margin-bottom:20px;flex-shrink:0;}
+.chef-portrait img{width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block;}
+.cl-name{font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:3px;}
+.cl-role{font-size:0.70rem;font-weight:400;color:var(--croissant-lt);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:24px;}
+.cl-divider{width:36px;height:2px;background:linear-gradient(to right,var(--croissant),rgba(200,133,58,0.2));margin-bottom:24px;}
+.cd{display:flex;align-items:flex-start;gap:13px;margin-bottom:18px;}
+.cd-icon{width:40px;height:40px;flex-shrink:0;background:rgba(200,133,58,0.14);border:1px solid rgba(200,133,58,0.28);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;transition:background 0.25s;}
+.cd:hover .cd-icon{background:rgba(200,133,58,0.28);}
+.cd-label{font-size:0.60rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--croissant-lt);margin-bottom:3px;}
+.cd-value{font-size:0.86rem;font-weight:300;color:rgba(255,255,255,0.85);line-height:1.55;}
+.cd-value a{color:rgba(255,255,255,0.85);text-decoration:underline;text-underline-offset:2px;}
+.avail-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,133,58,0.14);border:1px solid rgba(200,133,58,0.28);border-radius:20px;padding:7px 14px;font-size:0.68rem;font-weight:500;color:var(--croissant-lt);margin-top:20px;width:fit-content;}
+.avail-dot{width:7px;height:7px;border-radius:50%;background:#6ee7b7;box-shadow:0 0 0 2px rgba(110,231,183,0.3);animation:pulseG 2s ease-in-out infinite;flex-shrink:0;}
+@keyframes pulseG{0%,100%{box-shadow:0 0 0 2px rgba(110,231,183,0.3)}50%{box-shadow:0 0 0 5px rgba(110,231,183,0.1)}}
+.social-row{display:flex;gap:10px;margin-top:22px;}
+.soc-btn{width:36px;height:36px;border-radius:50%;background:rgba(200,133,58,0.12);border:1px solid rgba(200,133,58,0.28);display:flex;align-items:center;justify-content:center;font-size:0.88rem;text-decoration:none;transition:background 0.25s,transform 0.2s;cursor:none;}
+.soc-btn:hover{background:rgba(200,133,58,0.30);transform:translateY(-2px);}
+
+.cpanel-right{background:var(--warm-white);padding:64px 60px;display:flex;flex-direction:column;justify-content:center;}
+.form-heading{font-weight:800;font-size:1.45rem;color:var(--choco);margin-bottom:5px;}
+.form-sub{font-size:0.86rem;font-weight:300;color:var(--text-mid);margin-bottom:28px;line-height:1.6;}
+
+.pills{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:26px;}
+.pill{padding:7px 16px;border-radius:20px;border:1.5px solid rgba(200,133,58,0.28);background:transparent;font-family:'Poppins',sans-serif;font-size:0.73rem;font-weight:500;color:var(--text-mid);cursor:none;transition:background 0.2s,border-color 0.2s,color 0.2s;}
+.pill:hover,.pill.active{background:var(--croissant);border-color:var(--croissant);color:#fff;}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.ff{display:flex;flex-direction:column;gap:5px;}
+.ff.full{grid-column:1 / -1;}
+.ff label{font-size:0.67rem;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:var(--text-mid);}
+.ff input,.ff textarea{font-family:'Poppins',sans-serif;font-size:0.88rem;font-weight:300;background:var(--cream);border:1.5px solid rgba(200,133,58,0.22);border-radius:6px;padding:11px 14px;color:var(--text);outline:none;transition:border-color 0.2s,box-shadow 0.2s;resize:none;}
+.ff input:focus,.ff textarea:focus{border-color:var(--croissant);box-shadow:0 0 0 3px rgba(200,133,58,0.10);}
+.ff input.err,.ff textarea.err{border-color:#c0392b;box-shadow:0 0 0 3px rgba(192,57,43,0.10);}
+.ff textarea{min-height:120px;}
+.char-hint{font-size:0.67rem;font-weight:300;color:var(--text-dim);text-align:right;margin-top:2px;}
+
+.submit-row{display:flex;align-items:center;gap:18px;margin-top:22px;flex-wrap:wrap;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 36px;background:var(--croissant);color:#fff;font-family:'Poppins',sans-serif;font-size:0.82rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;border:none;border-radius:4px;transition:background 0.25s,transform 0.2s;box-shadow:0 5px 18px rgba(200,133,58,0.30);cursor:none;}
+.btn-primary:hover:not(:disabled){background:var(--caramel);transform:translateY(-2px);}
+.btn-primary:disabled{opacity:0.65;cursor:not-allowed;}
+.btn-spinner{display:none;width:15px;height:15px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.submit-note{font-size:0.70rem;font-weight:300;color:var(--text-dim);line-height:1.5;}
+.form-error-msg{display:none;color:#c0392b;font-size:0.80rem;font-weight:500;margin-top:12px;padding:10px 14px;background:rgba(192,57,43,0.07);border:1px solid rgba(192,57,43,0.2);border-radius:6px;}
+.form-error-msg.show{display:block;}
+
+#successMsg{display:none;text-align:center;padding:48px 24px;}
+.success-icon{font-size:3rem;margin-bottom:14px;display:block;}
+#successMsg h3{font-weight:800;font-size:1.3rem;color:var(--choco);margin-bottom:10px;}
+#successMsg p{font-size:0.88rem;font-weight:300;color:var(--text-mid);line-height:1.75;}
+#successMsg a{color:var(--croissant);text-decoration:none;}
+
+footer{background:#2a1404;color:rgba(255,255,255,0.45);text-align:center;padding:26px 56px;font-size:0.75rem;font-weight:300;letter-spacing:0.05em;}
+footer span{color:var(--croissant-lt);}
+footer a{color:var(--croissant-lt);text-decoration:none;}
+
+@media(max-width:900px){
+  nav{padding:10px 20px;}
+  .nav-toggle{display:flex;}
+  .nav-links{display:none;flex-direction:column;gap:4px;position:absolute;top:100%;left:0;right:0;background:rgba(253,248,242,0.99);backdrop-filter:blur(20px);padding:16px 20px 20px;border-bottom:1px solid rgba(200,133,58,0.14);box-shadow:0 8px 24px rgba(90,48,16,0.08);}
+  .nav-links.nav-open{display:flex;}
+  .nav-links li:last-child a{text-align:center;}
+  .contact-page{grid-template-columns:1fr;}
+  .cpanel-left,.cpanel-right{padding:48px 24px;}
+  .form-grid{grid-template-columns:1fr;}
+  .ff.full{grid-column:1;}
+  .page-banner{min-height:200px;}
+}
+</style>
+</head>
+<body>
+
+<svg id="whisk-cursor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 84" fill="none">
+  <rect x="17.5" y="50" width="5" height="30" rx="2.5" fill="#5a3010"/>
+  <rect x="19" y="50" width="2.5" height="30" rx="1.2" fill="#7a5530" opacity="0.35"/>
+  <rect x="15" y="45" width="10" height="7" rx="2.5" fill="#c8853a"/>
+  <rect x="15" y="45" width="10" height="3.5" rx="2.5" fill="#e8aa68" opacity="0.5"/>
+  <path d="M20 45 C5 36 3 16 20 6" stroke="#c8853a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <path d="M20 45 C35 36 37 16 20 6" stroke="#c8853a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <path d="M20 45 C11 38 9 20 20 6" stroke="#e8aa68" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+  <path d="M20 45 C29 38 31 20 20 6" stroke="#e8aa68" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+  <path d="M10.5 32 Q20 29 29.5 32" stroke="#c8853a" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+  <path d="M8 22 Q20 19 32 22" stroke="#c8853a" stroke-width="1.0" stroke-linecap="round" fill="none"/>
+  <path d="M13 40 Q20 38 27 40" stroke="#e8aa68" stroke-width="1.0" stroke-linecap="round" fill="none"/>
+  <circle cx="20" cy="6" r="2.2" fill="#c8853a"/>
+</svg>
+
+<nav>
+  <a href="index.html" class="nav-logo" aria-label="L·Monsorez Home">
+    <img src="logo.jpg" alt="Ludovic Monsorez" class="nav-logo-img">
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+      <rect y="0" width="22" height="2" rx="1" fill="currentColor"/>
+      <rect y="7" width="22" height="2" rx="1" fill="currentColor"/>
+      <rect y="14" width="22" height="2" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#story">Story</a></li>
+    <li><a href="index.html#creations">Creations</a></li>
+    <li><a href="index.html#philosophy">Philosophy</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-banner">
+  <div class="pb-blob b1"></div>
+  <div class="pb-blob b2"></div>
+  <div class="banner-inner">
+    <p class="page-eyebrow">Ludovic Monsorez</p>
+    <h1 class="page-title">Let's <em>work</em> together</h1>
+    <p class="page-sub">Bespoke pastry orders, custom cakes, wholesale enquiries, or collaborations — I'd love to hear from you.</p>
+  </div>
+</div>
+
+<div class="contact-page">
+
+  <div class="cpanel-left slide-left">
+    <div class="chef-portrait">
+      <img src="about-photo.jpg" alt="Ludovic Monsorez" loading="lazy">
+    </div>
+    <p class="cl-name">Ludovic Monsorez</p>
+    <p class="cl-role">Pastry Chef &amp; Viennoiserie Specialist</p>
+    <div class="cl-divider"></div>
+    <div class="cd">
+      <div class="cd-icon">📍</div>
+      <div><p class="cd-label">Location</p><p class="cd-value">37 Vestry Road<br>London, SE5 8PG</p></div>
+    </div>
+    <div class="cd">
+      <div class="cd-icon">✉️</div>
+      <div><p class="cd-label">Email</p><p class="cd-value"><a href="mailto:xxshady262xx@gmail.com">xxshady262xx@gmail.com</a></p></div>
+    </div>
+    <div class="cd">
+      <div class="cd-icon">📞</div>
+      <div><p class="cd-label">Phone</p><p class="cd-value"><a href="tel:+447533562255">+44 7533 562 255</a></p></div>
+    </div>
+    <div class="cd">
+      <div class="cd-icon">🕐</div>
+      <div><p class="cd-label">Availability</p><p class="cd-value">Mon – Sat, 9:00 – 20:00</p></div>
+    </div>
+    <div class="cd">
+      <div class="cd-icon">🗓️</div>
+      <div><p class="cd-label">Lead Time</p><p class="cd-value">2–4 weeks for custom cakes<br>Wholesale enquiries welcome</p></div>
+    </div>
+    <div class="avail-badge">
+      <div class="avail-dot"></div>
+      Open to new orders &amp; collaborations
+    </div>
+    <div class="social-row">
+      <a href="https://www.instagram.com/ludovicmonsorez" target="_blank" rel="noopener noreferrer" class="soc-btn" title="Instagram">📷</a>
+      <a href="#" class="soc-btn" title="Facebook">📘</a>
+      <a href="#" class="soc-btn" title="LinkedIn">💼</a>
+    </div>
+  </div>
+
+  <div class="cpanel-right slide-right">
+    <p class="form-heading" id="formHeading">Send a message</p>
+    <p class="form-sub" id="formSub">Fill in the form and I'll get back to you as soon as possible.</p>
+
+    <div class="pills" id="pillsRow">
+      <button type="button" class="pill active" data-value="Custom Cake">Custom Cake</button>
+      <button type="button" class="pill" data-value="Wholesale Order">Wholesale Order</button>
+      <button type="button" class="pill" data-value="Viennoiserie">Viennoiserie</button>
+      <button type="button" class="pill" data-value="Private Event">Private Event</button>
+      <button type="button" class="pill" data-value="Collaboration">Collaboration</button>
+      <button type="button" class="pill" data-value="Other">Other</button>
+    </div>
+
+    <form id="contactForm" action="https://formspree.io/f/xykbwkqb" method="POST" novalidate>
+      <input type="hidden" name="enquiry_type" id="enquiryType" value="Custom Cake">
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+      <div class="form-grid">
+        <div class="ff">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" name="first_name" placeholder="Jean" required autocomplete="given-name">
+        </div>
+        <div class="ff">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" name="last_name" placeholder="Dupont" required autocomplete="family-name">
+        </div>
+        <div class="ff full">
+          <label for="femail">Email Address</label>
+          <input type="email" id="femail" name="email" placeholder="jean@example.com" required autocomplete="email">
+        </div>
+        <div class="ff full">
+          <label for="fphone">Phone <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span></label>
+          <input type="tel" id="fphone" name="phone" placeholder="+44 7700 000 000" autocomplete="tel">
+        </div>
+        <div class="ff full">
+          <label for="fdate">Event Date or Timeframe <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span></label>
+          <input type="text" id="fdate" name="event_date" placeholder="e.g. June 2026, Summer, Flexible…">
+        </div>
+        <div class="ff full">
+          <label for="fmsg">Your Message</label>
+          <textarea id="fmsg" name="message" placeholder="Tell me about your project — occasion, number of guests, flavours, dietary requirements…" maxlength="800" required></textarea>
+          <p class="char-hint"><span id="charCount">0</span> / 800</p>
+        </div>
+      </div>
+      <div class="submit-row">
+        <button type="submit" class="btn-primary" id="submitBtn">
+          <span id="btnText">Send Message</span>
+          <span class="btn-spinner" id="btnSpinner"></span>
+        </button>
+        <span class="submit-note">I reply as soon as possible.<br>Your details are never shared.</span>
+      </div>
+      <p class="form-error-msg" id="formError"></p>
+    </form>
+
+    <div id="successMsg">
+      <span class="success-icon">🥐</span>
+      <h3>Message sent — merci !</h3>
+      <p>I'll be in touch soon.<br>
+      Browse my <a href="index.html#creations">creations</a> or <a href="index.html">return home</a>.<br>
+      You can also reach me at <a href="mailto:xxshady262xx@gmail.com">xxshady262xx@gmail.com</a>.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 <span>Ludovic Monsorez</span> — Pastry Chef &amp; Viennoiserie Specialist · London &nbsp;·&nbsp; <a href="index.html">Back to Home</a></p>
+</footer>
+
+<script>
+var whisk = document.getElementById('whisk-cursor');
+document.addEventListener('mousemove', function(e) {
+  whisk.style.left = e.clientX + 'px';
+  whisk.style.top  = e.clientY + 'px';
+});
+document.querySelectorAll('a,button,input,textarea').forEach(function(el) {
+  el.addEventListener('mouseenter', function() { document.body.classList.add('cursor-hover'); });
+  el.addEventListener('mouseleave', function() { document.body.classList.remove('cursor-hover'); });
+});
+
+var navToggle = document.getElementById('navToggle');
+var navLinks  = document.getElementById('navLinks');
+if (navToggle && navLinks) {
+  navToggle.addEventListener('click', function() {
+    var open = navLinks.classList.toggle('nav-open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.addEventListener('click', function(e) {
+    if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+      navLinks.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
+var revealObs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.slide-left,.slide-right').forEach(function(el) {
+  revealObs.observe(el);
+});
+
+document.querySelectorAll('.pill').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('enquiryType').value = btn.getAttribute('data-value');
+  });
+});
+
+document.getElementById('fmsg').addEventListener('input', function() {
+  document.getElementById('charCount').textContent = this.value.length;
+});
+
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var form = this;
+  var valid = true;
+  ['fname','lname','femail','fmsg'].forEach(function(id) {
+    var f = document.getElementById(id);
+    if (!f.value.trim()) {
+      f.classList.add('err');
+      valid = false;
+      f.addEventListener('input', function() { f.classList.remove('err'); }, { once: true });
+    }
+  });
+  if (!valid) return;
+
+  var btn     = document.getElementById('submitBtn');
+  var btnText = document.getElementById('btnText');
+  var spinner = document.getElementById('btnSpinner');
+  var errEl   = document.getElementById('formError');
+  btn.disabled          = true;
+  btnText.textContent   = 'Sending\u2026';
+  spinner.style.display = 'inline-block';
+  errEl.classList.remove('show');
+
+  fetch(form.action, {
+    method: 'POST',
+    body:   new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  }).then(function(res) {
+    if (res.ok) {
+      form.style.display = 'none';
+      document.getElementById('pillsRow').style.display    = 'none';
+      document.getElementById('formHeading').style.display = 'none';
+      document.getElementById('formSub').style.display     = 'none';
+      document.getElementById('successMsg').style.display  = 'block';
+    } else {
+      return res.json().then(function(d) {
+        throw new Error(d && d.error ? d.error : 'Server error.');
+      });
+    }
+  }).catch(function() {
+    btn.disabled          = false;
+    btnText.textContent   = 'Send Message';
+    spinner.style.display = 'none';
+    errEl.textContent     = 'Could not send. Please email xxshady262xx@gmail.com directly.';
+    errEl.classList.add('show');
+  });
+});
+</script>
+</body>
+</html>

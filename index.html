@@ -1,0 +1,1795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ludovic Monsorez — Pastry Artist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700&display=swap"></noscript>
+<style>
+  :root {
+    --warm-white:   #fdf8f2;
+    --cream:        #f5ead8;
+    --croissant:    #c8853a;
+    --croissant-lt: #e8aa68;
+    --caramel:      #a05c1a;
+    --butter:       #f0d49a;
+    --choco:        #5a3010;
+    --text:         #3a2408;
+    --text-mid:     #7a5530;
+    --text-dim:     rgba(58,36,8,0.50);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:auto; }
+  body { background:var(--warm-white); color:var(--text); font-family:'Poppins',sans-serif; overflow-x:hidden; cursor:none; }
+
+  /* WHISK CURSOR */
+  #whisk-cursor { position:fixed; pointer-events:none; z-index:9999; width:40px; height:84px; left:-200px; top:-200px; transform:translate(-50%,-8px); }
+  body.cursor-hover #whisk-cursor { filter:drop-shadow(0 3px 8px rgba(200,133,58,0.55)); }
+
+  /* NAV */
+  /* ═══════════════════════════════
+     PREMIUM NAVBAR
+  ═══════════════════════════════ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 60px;
+    background: rgba(253,248,242,0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(200,133,58,0.18);
+    box-shadow: 0 2px 24px rgba(90,48,16,0.07);
+    animation: fadeDown 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s both;
+  }
+  @keyframes fadeDown {
+    from { opacity:0; transform:translateY(-20px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* Logo */
+  .nav-logo {
+    text-decoration: none;
+    display: flex; align-items: center;
+    flex-shrink: 0;
+  }
+  .nav-logo-img {
+    height: 90px; width: auto;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), filter 0.35s ease;
+    filter: drop-shadow(0 2px 6px rgba(90,48,16,0.10));
+  }
+  .nav-logo-img:hover {
+    transform: scale(1.05) translateY(-2px);
+    filter: drop-shadow(0 6px 16px rgba(200,133,58,0.28));
+  }
+
+  /* Nav links group */
+  .nav-links {
+    display: flex; align-items: center;
+    gap: 10px; list-style: none;
+  }
+
+  .nav-links a {
+    position: relative;
+    font-size: 0.82rem; font-weight: 600;
+    letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--text-mid);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    transition: color 0.28s ease, background 0.28s ease;
+  }
+
+  /* animated underline */
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: 4px; left: 14px;
+    width: 0; height: 1.5px;
+    background: linear-gradient(to right, var(--croissant), var(--croissant-lt));
+    border-radius: 2px;
+    transition: width 0.35s cubic-bezier(0.22,1,0.36,1);
+  }
+  .nav-links a:hover { color: var(--croissant); }
+  .nav-links a:hover::after { width: calc(100% - 28px); }
+  .nav-links a.active { color: var(--croissant); }
+  .nav-links a.active::after { width: calc(100% - 28px); }
+
+  /* CTA-style pill on the last link (Contact) */
+  .nav-links li:last-child a {
+    background: var(--croissant);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 20px;
+    letter-spacing: 0.07em;
+    box-shadow: 0 3px 12px rgba(200,133,58,0.28);
+    transition: background 0.28s ease, transform 0.22s ease, box-shadow 0.28s ease;
+  }
+  .nav-links li:last-child a::after { display: none; }
+  .nav-links li:last-child a:hover {
+    background: var(--caramel);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(200,133,58,0.38);
+    color: #fff;
+  }
+  .nav-links li:last-child a.active {
+    background: var(--caramel); color: #fff;
+  }
+
+  /* Mobile hamburger */
+  .nav-toggle {
+    display: none; background: none; border: none;
+    cursor: pointer; padding: 8px; color: var(--choco);
+    border-radius: 6px; transition: background 0.2s;
+  }
+  .nav-toggle:hover { background: rgba(200,133,58,0.10); }
+  .nav-toggle svg { display: block; }
+
+  /* ═══════════════════════════════
+     LANGUAGE WELCOME MODAL
+  ═══════════════════════════════ */
+  #lang-modal-overlay {
+    position: fixed; inset: 0; z-index: 9000;
+    background: rgba(58,36,8,0.62);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    animation: overlayIn 0.5s ease both;
+  }
+  @keyframes overlayIn { from{opacity:0} to{opacity:1} }
+  #lang-modal-overlay.hide {
+    animation: overlayOut 0.45s ease forwards;
+  }
+  @keyframes overlayOut { to{opacity:0; pointer-events:none} }
+
+  .lang-modal {
+    background: var(--warm-white);
+    border-radius: 24px;
+    padding: 44px 40px 36px;
+    max-width: 400px; width: 90%;
+    text-align: center;
+    box-shadow: 0 32px 80px rgba(58,36,8,0.30), 0 0 0 1px rgba(200,133,58,0.18);
+    animation: modalPop 0.55s cubic-bezier(0.34,1.56,0.64,1) 0.15s both;
+    position: relative;
+  }
+  @keyframes modalPop {
+    from { opacity:0; transform:scale(0.80) translateY(20px); }
+    to   { opacity:1; transform:scale(1) translateY(0); }
+  }
+
+  /* chef portrait inside modal */
+  .modal-chef {
+    width: 110px; height: 110px; border-radius: 50%;
+    overflow: hidden; margin: 0 auto 20px;
+    border: 4px solid var(--butter);
+    box-shadow: 0 0 0 6px rgba(240,212,154,0.40), 0 12px 32px rgba(90,48,16,0.18);
+    background: var(--cream);
+  }
+  .modal-chef img { width:100%; height:100%; object-fit:cover; object-position:center 15%; display:block; }
+
+  .modal-greeting {
+    font-size: 1.35rem; font-weight: 800; color: var(--choco);
+    margin-bottom: 6px; line-height: 1.2;
+  }
+  .modal-sub {
+    font-size: 0.88rem; font-weight: 300; color: var(--text-mid);
+    margin-bottom: 28px; line-height: 1.6;
+  }
+
+  .modal-btns { display: flex; flex-direction: column; gap: 12px; }
+  .modal-lang-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 14px 20px; border-radius: 12px; border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.92rem; font-weight: 600;
+    cursor: pointer; transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+    text-decoration: none;
+  }
+  .modal-lang-btn:hover { transform: translateY(-3px); }
+  .modal-lang-btn.english {
+    background: var(--croissant); color: #fff;
+    box-shadow: 0 6px 22px rgba(200,133,58,0.35);
+  }
+  .modal-lang-btn.english:hover { background: var(--caramel); box-shadow: 0 10px 28px rgba(200,133,58,0.45); }
+  .modal-lang-btn.french {
+    background: var(--cream); color: var(--choco);
+    border: 1.5px solid rgba(200,133,58,0.30);
+    box-shadow: 0 4px 14px rgba(90,48,16,0.08);
+  }
+  .modal-lang-btn.french:hover { background: var(--butter); box-shadow: 0 8px 22px rgba(90,48,16,0.13); }
+  .modal-lang-btn .flag { font-size: 1.25rem; }
+  .modal-lang-btn .pastry-icon { font-size: 1.1rem; }
+
+  /* decorative sprinkle dots */
+  .modal-deco { position:absolute; pointer-events:none; font-size:1.4rem; opacity:0.18; }
+  .modal-deco.d1 { top:16px; right:20px; transform:rotate(20deg); }
+  .modal-deco.d2 { bottom:18px; left:18px; transform:rotate(-15deg); }
+
+  /* ═══════════════════════════════
+     REVIEWS SECTION
+  ═══════════════════════════════ */
+  #reviews { background: var(--cream); }
+  .reviews-header { text-align:center; margin-bottom:48px; }
+  .reviews-header .section-label { justify-content:center; }
+  .reviews-header .section-title { margin:0 auto 12px; }
+  .reviews-header .section-body  { margin:0 auto; text-align:center; }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .review-card {
+    background: var(--warm-white);
+    border-radius: 16px;
+    padding: 28px 26px 22px;
+    border: 1px solid rgba(200,133,58,0.14);
+    box-shadow: 0 4px 20px rgba(90,48,16,0.07);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s ease;
+  }
+  .review-card.visible { opacity:1; transform:translateY(0); }
+  .review-card:hover { transform:translateY(-5px) !important; box-shadow:0 14px 36px rgba(90,48,16,0.13); }
+
+  .review-card::before {
+    content: '"'; position:absolute; top:-10px; left:20px;
+    font-size:5rem; line-height:1; font-weight:800;
+    color: rgba(200,133,58,0.13); font-family:'Poppins',sans-serif;
+    pointer-events:none;
+  }
+
+  .review-stars { color: var(--croissant); font-size:1rem; letter-spacing:2px; margin-bottom:12px; }
+  .review-text {
+    font-size:0.88rem; font-weight:300; color:var(--text-mid);
+    line-height:1.75; margin-bottom:18px; font-style:italic;
+  }
+  .review-author { display:flex; align-items:center; gap:12px; }
+  .review-avatar {
+    width:38px; height:38px; border-radius:50%;
+    background:linear-gradient(135deg,var(--croissant),var(--butter));
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.95rem; font-weight:700; color:#fff; flex-shrink:0;
+  }
+  .review-name { font-size:0.82rem; font-weight:600; color:var(--choco); }
+  .review-role { font-size:0.72rem; font-weight:400; color:var(--text-dim); margin-top:1px; }
+
+  /* REVIEW FORM */
+  .review-form-wrap {
+    max-width: 620px; margin: 0 auto;
+    background: var(--warm-white);
+    border-radius: 20px; padding: 36px 40px;
+    border: 1px solid rgba(200,133,58,0.18);
+    box-shadow: 0 8px 32px rgba(90,48,16,0.09);
+  }
+  .review-form-title {
+    font-size:1.1rem; font-weight:700; color:var(--choco);
+    margin-bottom:6px;
+  }
+  .review-form-sub {
+    font-size:0.82rem; color:var(--text-mid); font-weight:300;
+    margin-bottom:24px;
+  }
+  .rf-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+  .rf-field { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+  .rf-field label {
+    font-size:0.72rem; font-weight:600; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--text-mid);
+  }
+  .rf-field input, .rf-field textarea, .rf-field select {
+    font-family:'Poppins',sans-serif;
+    font-size:0.88rem; font-weight:300;
+    padding:11px 14px; border-radius:8px;
+    border:1.5px solid rgba(200,133,58,0.22);
+    background:var(--warm-white); color:var(--text);
+    outline:none; transition:border-color 0.22s ease, box-shadow 0.22s ease;
+    cursor:auto;
+  }
+  .rf-field input:focus, .rf-field textarea:focus, .rf-field select:focus {
+    border-color:var(--croissant);
+    box-shadow:0 0 0 3px rgba(200,133,58,0.12);
+  }
+  .rf-field textarea { resize:vertical; min-height:110px; }
+
+  /* star-rating picker */
+  .star-picker { display:flex; gap:6px; margin-top:2px; }
+  .star-picker { position:relative; z-index:10; }
+  .star-picker span {
+    font-size:1.8rem; cursor:pointer !important; transition:transform 0.15s ease, filter 0.15s ease;
+    filter:grayscale(1) opacity(0.4);
+    user-select:none; pointer-events:all !important; display:inline-block;
+  }
+  .star-picker span.lit { filter:none; color:var(--croissant); }
+  .star-picker span:hover { transform:scale(1.3); filter:none; }
+
+  .rf-submit {
+    width:100%; padding:14px;
+    background:var(--croissant); color:#fff;
+    font-family:'Poppins',sans-serif; font-size:0.88rem;
+    font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+    border:none; border-radius:10px; cursor:pointer;
+    transition:background 0.25s, transform 0.2s, box-shadow 0.25s;
+    box-shadow:0 6px 20px rgba(200,133,58,0.30);
+    margin-top:4px;
+  }
+  .rf-submit:hover { background:var(--caramel); transform:translateY(-2px); box-shadow:0 10px 28px rgba(200,133,58,0.38); }
+
+  .rf-success {
+    display:none; text-align:center; padding:28px 0 8px;
+  }
+  .rf-success .rf-icon { font-size:2.5rem; margin-bottom:12px; }
+  .rf-success p { font-size:0.92rem; color:var(--text-mid); font-weight:300; line-height:1.65; }
+
+  /* BUTTONS */
+  .btn-primary { display:inline-block; padding:14px 36px; background:var(--croissant); color:#fff; font-family:'Poppins',sans-serif; font-size:0.82rem; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; text-decoration:none; border:none; border-radius:3px; transition:background 0.25s,transform 0.2s; box-shadow:0 6px 20px rgba(200,133,58,0.3); cursor:none; }
+  .btn-primary:hover { background:var(--caramel); transform:translateY(-2px); }
+  .btn-outline { display:inline-block; padding:13px 36px; border:1.5px solid var(--croissant); color:var(--croissant); font-family:'Poppins',sans-serif; font-size:0.82rem; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; text-decoration:none; border-radius:3px; transition:background 0.25s,color 0.25s,transform 0.2s; cursor:none; }
+  .btn-outline:hover { background:var(--croissant); color:#fff; transform:translateY(-2px); }
+
+  /* SECTION COMMONS */
+  section { padding:100px 56px; }
+  .section-label { font-size:0.70rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--croissant); margin-bottom:12px; display:flex; align-items:center; gap:10px; }
+  .section-label::before { content:''; width:28px; height:1.5px; background:var(--croissant); display:inline-block; }
+  .section-title { font-weight:800; font-size:clamp(1.8rem,3.5vw,2.8rem); color:var(--choco); margin-bottom:20px; line-height:1.15; }
+  .section-title em { font-style:italic; font-weight:300; color:var(--croissant); }
+  .section-body { font-size:1rem; font-weight:300; line-height:1.85; color:var(--text-mid); max-width:600px; }
+  .divider { width:60px; height:2px; background:linear-gradient(to right,var(--croissant),var(--butter)); margin:24px 0 36px; }
+
+  /* SLIDE ANIMATIONS */
+  .slide-left  { opacity:0; transform:translateX(-60px); transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1),transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .slide-right { opacity:0; transform:translateX(60px);  transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1),transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .slide-left.visible, .slide-right.visible { opacity:1; transform:translateX(0); }
+
+  /* ══ HERO — free scatter layout ══ */
+  #hero {
+    position:relative; height:100vh; min-height:700px;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    background:linear-gradient(150deg,var(--warm-white) 0%,var(--cream) 55%,#f7e8c8 100%);
+  }
+  #hero::before {
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(ellipse 65% 65% at 50% 52%, rgba(240,212,154,0.50) 0%, transparent 68%);
+  }
+
+  /* centre stage — chef photo + title stacked */
+  .hero-stage {
+    position:relative; z-index:5;
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    animation:fadeIn 1s ease 0.4s both;
+    padding-top:120px;
+  }
+  @keyframes fadeIn { from{opacity:0;transform:scale(0.94)} to{opacity:1;transform:scale(1)} }
+
+  .hero-eyebrow {
+    font-size:0.70rem; font-weight:600; letter-spacing:0.20em; text-transform:uppercase;
+    color:var(--croissant); margin-bottom:20px; margin-top:32px;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+  }
+  .hero-eyebrow::before,.hero-eyebrow::after { content:''; display:inline-block; width:24px; height:1.5px; background:var(--croissant); }
+
+  .hero-title {
+    font-weight:800; font-size:clamp(1.8rem,3.8vw,3.4rem); line-height:1.1; color:var(--choco);
+    margin-bottom:18px;
+  }
+  .hero-title em { font-style:italic; font-weight:300; color:var(--croissant); }
+
+  /* chef portrait */
+  .chef-circle {
+    width:240px; height:240px; border-radius:50%; overflow:hidden;
+    border:5px solid var(--butter);
+    box-shadow: 0 0 0 10px rgba(240,212,154,0.38), 0 0 0 18px rgba(200,133,58,0.13), 0 20px 56px rgba(90,48,16,0.20);
+    background:var(--cream); margin-bottom:20px;
+  }
+  .chef-circle img { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
+
+  .hero-sub { font-size:0.92rem; font-weight:300; color:var(--text-mid); max-width:400px; margin:0 auto 26px; line-height:1.75; }
+  .hero-ctas { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+
+  /* ── freely scattered pastry items ── */
+  .pastry-item {
+    position:absolute;
+    width:76px; height:76px; border-radius:50%;
+    background:rgba(253,248,242,0.90);
+    backdrop-filter:blur(6px);
+    border:2px solid rgba(200,133,58,0.22);
+    box-shadow:0 6px 22px rgba(90,48,16,0.11);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    font-size:1.75rem; line-height:1;
+    z-index:6;
+    /* each item has its own CSS position + float animation */
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .pastry-item:hover {
+    transform:scale(1.18) rotate(-4deg) !important;
+    box-shadow:0 12px 32px rgba(90,48,16,0.20);
+    z-index:20;
+  }
+  .pastry-item .item-label {
+    font-size:0.46rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--text-mid); margin-top:3px; line-height:1; white-space:nowrap;
+  }
+
+  /* ── BURST-OUT ENTRANCE: items start at centre (50%/50%), fly to position ──
+     Each item uses a unique @keyframes that begins at 50vw/50vh (centre of hero),
+     bursts outward to its final spot, then gently floats forever.
+     Total duration = entrance (0.9s) + float loop.
+     The animation-fill-mode:both keeps the item at its final position.         */
+
+  /* ENTRANCE keyframes: from centre → resting position, then float */
+  @keyframes burst0 {
+    0%   { top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
+    15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
+    55%  { top:170px; left:3%;   transform:translate(0,0) scale(1); }
+    77%  { transform:translate(4px,-14px) rotate(3deg); }
+    100% { top:170px; left:3%;   transform:translate(0,0) rotate(-3deg); }
+  }
+  @keyframes burst1 {
+    0%   { top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
+    15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
+    55%  { top:175px; left:20%;  transform:translate(0,0) scale(1); }
+    77%  { transform:translate(-6px,-10px) rotate(-2deg); }
+    100% { top:175px; left:20%;  transform:translate(0,0) rotate(5deg); }
+  }
+  @keyframes burst2 {
+    0%   { top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
+    15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
+    55%  { top:175px; right:20%; left:auto; transform:translate(0,0) scale(1); }
+    77%  { transform:translate(5px,-18px) rotate(4deg); }
+    100% { top:175px; right:20%; left:auto; transform:translate(0,0) rotate(-6deg); }
+  }
+  @keyframes burst3 {
+    0%   { top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
+    15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
+    55%  { top:170px; right:3%;  left:auto; transform:translate(0,0) scale(1); }
+    77%  { transform:translate(-4px,-12px) rotate(-5deg); }
+    100% { top:170px; right:3%;  left:auto; transform:translate(0,0) rotate(2deg); }
+  }
+  @keyframes burst4 {
+    0%   { top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
+    15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
+    55%  { top:38%;  left:1%;   transform:translate(0,0) scale(1); }
+    77%  { transform:translate(6px,-16px) rotate(6deg); }
+    100% { top:38%;  left:1%;   transform:translate(0,0) rotate(-4deg); }
+  }
+  @keyframes burst5 {
+    0%   { top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
+    15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
+    55%  { top:38%;  right:1%;  left:auto; transform:translate(0,0) scale(1); }
+    77%  { transform:translate(-5px,-11px) rotate(-3deg); }
+    100% { top:38%;  right:1%;  left:auto; transform:translate(0,0) rotate(7deg); }
+  }
+  @keyframes burst6 {
+    0%   { bottom:auto; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
+    15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
+    55%  { bottom:28px; top:auto; left:2%;  transform:translate(0,0) scale(1); }
+    77%  { transform:translate(3px,-15px) rotate(5deg); }
+    100% { bottom:28px; top:auto; left:2%;  transform:translate(0,0) rotate(-2deg); }
+  }
+  @keyframes burst7 {
+    0%   { bottom:auto; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
+    15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
+    55%  { bottom:28px; top:auto; left:16%; transform:translate(0,0) scale(1); }
+    77%  { transform:translate(-7px,-13px) rotate(-4deg); }
+    100% { bottom:28px; top:auto; left:16%; transform:translate(0,0) rotate(4deg); }
+  }
+  @keyframes burst8 {
+    0%   { bottom:auto; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
+    15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
+    55%  { bottom:28px; top:auto; right:16%; left:auto; transform:translate(0,0) scale(1); }
+    77%  { transform:translate(5px,-10px) rotate(3deg); }
+    100% { bottom:28px; top:auto; right:16%; left:auto; transform:translate(0,0) rotate(-5deg); }
+  }
+  @keyframes burst9 {
+    0%   { bottom:auto; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
+    15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
+    55%  { bottom:28px; top:auto; right:2%;  left:auto; transform:translate(0,0) scale(1); }
+    77%  { transform:translate(-4px,-17px) rotate(-6deg); }
+    100% { bottom:28px; top:auto; right:2%;  left:auto; transform:translate(0,0) rotate(3deg); }
+  }
+
+  /* Ongoing float after entrance (runs after burst settles) */
+  @keyframes f0 { 0%,100%{transform:translate(0,0) rotate(-3deg)} 50%{transform:translate(4px,-14px)  rotate(3deg)}  }
+  @keyframes f1 { 0%,100%{transform:translate(0,0) rotate(5deg)}  50%{transform:translate(-6px,-10px) rotate(-2deg)} }
+  @keyframes f2 { 0%,100%{transform:translate(0,0) rotate(-6deg)} 50%{transform:translate(5px,-18px)  rotate(4deg)}  }
+  @keyframes f3 { 0%,100%{transform:translate(0,0) rotate(2deg)}  50%{transform:translate(-4px,-12px) rotate(-5deg)} }
+  @keyframes f4 { 0%,100%{transform:translate(0,0) rotate(-4deg)} 50%{transform:translate(6px,-16px)  rotate(6deg)}  }
+  @keyframes f5 { 0%,100%{transform:translate(0,0) rotate(7deg)}  50%{transform:translate(-5px,-11px) rotate(-3deg)} }
+  @keyframes f6 { 0%,100%{transform:translate(0,0) rotate(-2deg)} 50%{transform:translate(3px,-15px)  rotate(5deg)}  }
+  @keyframes f7 { 0%,100%{transform:translate(0,0) rotate(4deg)}  50%{transform:translate(-7px,-13px) rotate(-4deg)} }
+  @keyframes f8 { 0%,100%{transform:translate(0,0) rotate(-5deg)} 50%{transform:translate(5px,-10px)  rotate(3deg)}  }
+  @keyframes f9 { 0%,100%{transform:translate(0,0) rotate(3deg)}  50%{transform:translate(-4px,-17px) rotate(-6deg)} }
+
+  /* Each item: burst entrance (1.5s, once) then float (infinite, delayed to start after burst) */
+  .pi-0 { top:170px; left:8%;        animation: burst0 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.1s both, f0 5.2s ease-in-out 1.6s infinite; }
+  .pi-1 { top:175px; left:26%;       animation: burst1 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.2s both, f1 6.1s ease-in-out 1.7s infinite; }
+  .pi-2 { top:175px; right:26%;      animation: burst2 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.3s both, f2 5.8s ease-in-out 1.8s infinite; }
+  .pi-3 { top:170px; right:8%;       animation: burst3 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.4s both, f3 6.5s ease-in-out 1.9s infinite; }
+  .pi-4 { top:44%;   left:5%;        animation: burst4 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.5s both, f4 5.5s ease-in-out 2.0s infinite; }
+  .pi-5 { top:44%;   right:5%;       animation: burst5 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.6s both, f5 6.3s ease-in-out 2.1s infinite; }
+  .pi-6 { bottom:28px; left:8%;      animation: burst6 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.7s both, f6 5.9s ease-in-out 2.2s infinite; }
+  .pi-7 { bottom:28px; left:26%;     animation: burst7 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.8s both, f7 6.7s ease-in-out 2.3s infinite; }
+  .pi-8 { bottom:28px; right:26%;    animation: burst8 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.9s both, f8 5.4s ease-in-out 2.4s infinite; }
+  .pi-9 { bottom:28px; right:8%;     animation: burst9 1.5s cubic-bezier(0.34,1.56,0.64,1) 1.0s both, f9 6.0s ease-in-out 2.5s infinite; }
+
+  /* pastry items always below hero-stage content */
+  .pastry-item { z-index:2; }
+  /* hero-stage (buttons etc) always above pastry items */
+  .hero-stage { z-index:10; position:relative; padding-top:48px; }
+
+  /* ABOUT */
+  #about { background:var(--cream); }
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+  .about-img-slot { position:relative; border-radius:12px; overflow:hidden; height:500px; background:var(--butter); box-shadow:0 20px 60px rgba(90,48,16,0.15); }
+  .about-img-slot span { text-align:center; line-height:1.7; padding:24px; }
+  .about-stats { display:flex; gap:36px; margin-top:36px; }
+  .stat-num { font-size:2rem; font-weight:800; color:var(--croissant); line-height:1; }
+  .stat-label { font-size:0.70rem; font-weight:500; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.10em; margin-top:4px; }
+
+  /* TIMELINE */
+  #story { background:var(--warm-white); }
+  .timeline { margin-top:48px; position:relative; padding-left:32px; }
+  .timeline::before { content:''; position:absolute; left:0; top:0; bottom:0; width:2px; background:rgba(200,133,58,0.15); }
+  .timeline-line { position:absolute; left:0; top:0; width:2px; height:0; background:linear-gradient(to bottom,var(--croissant),var(--croissant-lt)); z-index:1; }
+  .timeline-item { position:relative; margin-bottom:44px; padding-left:28px; }
+  .timeline-item::before { content:''; position:absolute; left:-8px; top:5px; width:14px; height:14px; background:var(--warm-white); border:2.5px solid rgba(200,133,58,0.3); border-radius:50%; z-index:2; transition:background 0.4s,border-color 0.4s,box-shadow 0.4s; }
+  .timeline-item.visible::before { background:var(--croissant); border-color:var(--croissant); box-shadow:0 0 0 4px rgba(200,133,58,0.18); }
+  .timeline-year { font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--croissant); margin-bottom:4px; }
+  .timeline-text { font-size:0.96rem; font-weight:400; line-height:1.7; color:var(--text-mid); }
+  .timeline-text strong { color:var(--choco); font-weight:600; }
+
+  /* GALLERY */
+  #creations { background:var(--cream); }
+  .gallery-intro { max-width:560px; margin-bottom:56px; }
+  .gallery-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:28px; }
+  .gallery-slot { position:relative; border-radius:6px; overflow:hidden; background:var(--choco); aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; opacity:0; transform:translateY(28px); transition:opacity 0.7s ease,transform 0.7s ease,box-shadow 0.3s; }
+  .gallery-slot.visible { opacity:1; transform:translateY(0); }
+  .gallery-slot:hover { transform:translateY(-6px) !important; box-shadow:0 18px 44px rgba(90,48,16,0.13); border-color:var(--croissant); }
+  .gallery-slot img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease; }
+  .gallery-slot:hover img { transform:scale(1.05); }
+  .g-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(90,48,16,0.60) 0%,transparent 55%); opacity:0; transition:opacity 0.3s; }
+  .gallery-slot:hover .g-overlay { opacity:1; }
+  .g-label { position:absolute; bottom:16px; left:16px; font-size:0.82rem; font-weight:600; color:#fff; letter-spacing:0.04em; opacity:0; transform:translateY(8px); transition:opacity 0.3s 0.05s,transform 0.3s 0.05s; }
+  .gallery-slot:hover .g-label { opacity:1; transform:translateY(0); }
+  .slot-ph { display:flex; flex-direction:column; align-items:center; gap:10px; padding:24px; text-align:center; }
+  .slot-icon { width:44px; height:44px; border-radius:50%; background:rgba(200,133,58,0.12); display:flex; align-items:center; justify-content:center; font-size:1.3rem; }
+  .slot-num { font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--croissant); }
+  .slot-hint { font-size:0.74rem; font-weight:300; color:var(--text-dim); line-height:1.5; }
+
+  /* PHILOSOPHY */
+  #philosophy {
+    background: linear-gradient(135deg, #b8722a 0%, var(--croissant) 40%, #d49040 100%);
+    position:relative; overflow:hidden;
+    padding: 52px 56px;
+  }
+  .phil-layout {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:48px; align-items:center;
+    max-width:1100px; margin:0 auto;
+  }
+  /* decorative blurred circles behind */
+  #philosophy::before, #philosophy::after {
+    content:''; position:absolute; border-radius:50%; pointer-events:none;
+  }
+  #philosophy::before {
+    width:500px; height:500px;
+    background:rgba(255,255,255,0.07);
+    top:-160px; left:-120px;
+  }
+  #philosophy::after {
+    width:360px; height:360px;
+    background:rgba(255,255,255,0.05);
+    bottom:-100px; right:-80px;
+  }
+
+  /* the animated card */
+  .phil-card {
+    position:relative; z-index:2;
+    display:inline-block;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.25);
+    border-radius:16px;
+    padding:32px 36px 28px;
+    max-width:420px;
+    box-shadow: 0 12px 40px rgba(90,48,16,0.22), inset 0 1px 0 rgba(255,255,255,0.20);
+    opacity:0; transform:translateY(40px) scale(0.97);
+    transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
+  }
+  .phil-card.visible { opacity:1; transform:translateY(0) scale(1); }
+
+  /* opening quote mark */
+  .phil-card::before {
+    content:'"';
+    position:absolute; top:-28px; left:36px;
+    font-size:8rem; line-height:1; font-weight:800;
+    color:rgba(255,255,255,0.18);
+    font-family:'Poppins',sans-serif;
+  }
+
+  .phil-quote {
+    font-size:clamp(1rem,1.8vw,1.45rem); font-weight:300; font-style:italic;
+    color:#fff; line-height:1.7; margin-bottom:28px;
+    /* typewriter reveal */
+    overflow:hidden;
+  }
+
+  /* each word fades in via JS */
+  .phil-word {
+    display:inline-block;
+    opacity:0; transform:translateY(12px);
+    transition:opacity 0.4s ease, transform 0.4s ease;
+  }
+  .phil-word.show { opacity:1; transform:translateY(0); }
+
+  .phil-divider {
+    width:48px; height:2px;
+    background:rgba(255,255,255,0.45);
+    margin:0 auto 20px;
+    transform:scaleX(0); transform-origin:left;
+    transition:transform 0.6s ease 0.3s;
+  }
+  .phil-card.visible .phil-divider { transform:scaleX(1); }
+
+  .phil-attr {
+    font-size:0.76rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase;
+    color:rgba(255,255,255,0.75);
+    opacity:0; transform:translateY(8px);
+    transition:opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s;
+  }
+  .phil-card.visible .phil-attr { opacity:1; transform:translateY(0); }
+
+  /* PHILOSOPHY DEVICES */
+  .phil-devices {
+    display:flex; align-items:flex-end; justify-content:center;
+    gap:0; position:relative; height:320px;
+  }
+
+  /* ── device shells ── */
+  .phil-tablet {
+    position:relative; z-index:1;
+    width:240px; height:290px;
+    background:linear-gradient(160deg,#2a2520,#131110);
+    border-radius:16px; border:3px solid #3a3530;
+    box-shadow:-4px 16px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06);
+    transform:perspective(900px) rotateY(10deg) rotateX(3deg);
+    transition:transform 0.5s ease;
+    padding:12px 10px 14px;
+    display:flex; flex-direction:column; align-items:center;
+    overflow:hidden;
+  }
+  .phil-tablet:hover { transform:perspective(900px) rotateY(4deg) rotateX(1deg); }
+
+  .phil-phone {
+    position:relative; z-index:2;
+    width:125px; height:240px;
+    background:linear-gradient(160deg,#1e1a17,#0d0b09);
+    border-radius:26px; border:3px solid #332e2a;
+    box-shadow:8px 16px 50px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.05);
+    transform:perspective(900px) rotateY(-7deg) rotateX(3deg) translateX(-22px) translateY(28px);
+    transition:transform 0.5s ease;
+    padding:24px 9px 12px;
+    display:flex; flex-direction:column; align-items:center;
+    overflow:hidden;
+  }
+  .phil-phone:hover { transform:perspective(900px) rotateY(-2deg) rotateX(1deg) translateX(-22px) translateY(28px); }
+
+  .pd-screen {
+    width:100%; flex:1; border-radius:6px;
+    overflow:hidden; background:#fdf8f2; position:relative;
+  }
+  .pd-home-bar {
+    width:36px; height:4px; border-radius:2px;
+    background:rgba(255,255,255,0.2); margin-top:8px; flex-shrink:0;
+  }
+  .pd-notch {
+    position:absolute; top:8px; left:50%; transform:translateX(-50%);
+    width:44px; height:9px; background:#0d0b09; border-radius:4px; z-index:3;
+    flex-shrink:0;
+  }
+
+  /* ── CSS-drawn site mockup ── */
+  .mock-site {
+    width:100%; height:100%; overflow:hidden;
+    background:#fdf8f2; display:flex; flex-direction:column;
+    font-size:0; /* kill whitespace */
+  }
+  .mock-nav {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:5px 8px; background:rgba(253,248,242,0.96);
+    border-bottom:1px solid rgba(200,133,58,0.12); flex-shrink:0;
+    height:16px;
+  }
+  .mock-nav.compact { padding:4px 6px; height:13px; }
+  .mock-logo { width:32px; height:6px; background:var(--croissant); border-radius:2px; }
+  .mock-nav-links { display:flex; gap:4px; }
+  .mock-nav-links span { width:16px; height:4px; background:rgba(122,85,48,0.3); border-radius:1px; }
+
+  .mock-hero {
+    position:relative; flex-shrink:0;
+    background:linear-gradient(135deg,#fdf8f2,#f5ead8,#f0d49a);
+    padding:8px 6px 10px;
+    display:flex; flex-direction:column; align-items:center;
+    min-height:110px;
+  }
+  .mock-hero.compact { min-height:85px; padding:6px 4px 8px; }
+  .mock-chef-circle {
+    width:40px; height:40px; border-radius:50%;
+    border:2px solid #f0d49a;
+    box-shadow:0 0 0 3px rgba(240,212,154,0.4);
+    background:linear-gradient(135deg,#f5ead8,#e8aa68);
+    margin-bottom:5px; flex-shrink:0;
+    overflow:hidden;
+  }
+  .mock-chef-circle.small { width:28px; height:28px; margin-bottom:4px; }
+  /* tiny chef silhouette inside circle */
+  .mock-chef-circle::after {
+    content:'👨‍🍳'; font-size:22px; display:flex;
+    align-items:center; justify-content:center;
+    width:100%; height:100%; line-height:1;
+  }
+  .mock-chef-circle.small::after { font-size:16px; }
+
+  .mock-pastry {
+    position:absolute; font-size:10px; animation:mockFloat 4s ease-in-out infinite;
+    background:rgba(253,248,242,0.9); border-radius:50%;
+    width:16px; height:16px; display:flex; align-items:center; justify-content:center;
+  }
+  .mock-pastry.sm { width:12px; height:12px; font-size:8px; }
+  .mp1 { top:6px;  left:6px;  animation-delay:0s; }
+  .mp2 { top:6px;  right:6px; animation-delay:0.5s; }
+  .mp3 { bottom:6px; left:6px; animation-delay:1s; }
+  .mp4 { bottom:6px; right:6px; animation-delay:1.5s; }
+  @keyframes mockFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+
+  .mock-hero-text { width:100%; text-align:center; }
+  .mock-btns { display:flex; gap:3px; justify-content:center; margin-top:4px; }
+  .mock-btns.center { justify-content:center; }
+  .mock-btn { height:6px; border-radius:1px; }
+  .mock-btn.filled { width:32px; background:var(--croissant); }
+  .mock-btn.outline { width:28px; background:transparent; border:1px solid var(--croissant); }
+  .mock-btn.sm { width:24px; height:5px; }
+
+  .mock-line {
+    height:5px; border-radius:2px; background:rgba(90,48,16,0.15); margin-bottom:3px;
+  }
+  .mock-line.bold { background:rgba(90,48,16,0.35); height:7px; }
+  .mock-line.accent { background:rgba(200,133,58,0.6); height:4px; }
+  .mock-line.w30 { width:30%; }
+  .mock-line.w40 { width:40%; }
+  .mock-line.w45 { width:45%; }
+  .mock-line.w50 { width:50%; }
+  .mock-line.w55 { width:55%; }
+  .mock-line.w60 { width:60%; }
+  .mock-line.w65 { width:65%; }
+  .mock-line.w70 { width:70%; }
+  .mock-line.w80 { width:80%; }
+  .mb4  { margin-bottom:4px; }
+  .mb6  { margin-bottom:6px; }
+  .mb8  { margin-bottom:8px; }
+  .mb10 { margin-bottom:10px; }
+
+  .mock-section { padding:8px 8px; flex-shrink:0; }
+  .mock-section.compact { padding:6px 6px; }
+  .mock-section.cream { background:#f5ead8; }
+  .mock-section.white { background:#fdf8f2; }
+  .mock-section.gallery-s { background:#f5ead8; }
+
+  .mock-timeline { display:flex; flex-direction:column; gap:5px; padding-left:8px; border-left:2px solid rgba(200,133,58,0.3); }
+  .mock-tl-item { height:14px; background:rgba(90,48,16,0.06); border-radius:3px; position:relative; padding-left:8px; }
+  .mock-tl-item::before {
+    content:''; position:absolute; left:-6px; top:50%; transform:translateY(-50%);
+    width:8px; height:8px; border-radius:50%; background:var(--croissant);
+  }
+
+  .mock-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; margin-top:4px; }
+  .mock-card { aspect-ratio:4/3; background:rgba(200,133,58,0.15); border-radius:3px; border:1px dashed rgba(200,133,58,0.3); }
+
+  @media(max-width:900px){
+    nav { padding:10px 20px; }
+    .nav-toggle { display:flex; }
+    .nav-links {
+      display:none; flex-direction:column; gap:4px;
+      position:absolute; top:100%; left:0; right:0;
+      background:rgba(253,248,242,0.99);
+      backdrop-filter:blur(20px);
+      padding:16px 20px 20px;
+      border-bottom:1px solid rgba(200,133,58,0.14);
+      box-shadow:0 8px 24px rgba(90,48,16,0.08);
+      animation:fadeDown 0.3s ease both;
+    }
+    .nav-links.nav-open { display:flex; }
+    .nav-links li:last-child a { text-align:center; }
+    
+    .phil-layout { grid-template-columns:1fr; gap:40px; }
+    .phil-devices { height:280px; }
+    .phil-tablet { width:200px; height:240px; }
+    .phil-phone  { width:108px; height:210px; }
+  }
+
+  /* FOOTER */
+  footer { background:#2a1404; color:rgba(255,255,255,0.45); text-align:center; padding:32px 56px; font-size:0.76rem; font-weight:300; letter-spacing:0.05em; }
+  footer span { color:var(--croissant-lt); }
+  footer a { color:var(--croissant-lt); text-decoration:none; }
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    nav { padding:18px 20px; }
+    .nav-links { gap:16px; }
+    section { padding:72px 24px; }
+    .hero-inner { flex-direction:column-reverse; padding:80px 24px 40px; text-align:center; }
+    .hero-content { max-width:100%; }
+    .hero-ctas { justify-content:center; }
+    .hero-eyebrow { justify-content:center; }
+    .hero-img-circle { width:220px; height:220px; }
+    .about-grid { grid-template-columns:1fr; gap:40px; }
+    .about-stats { gap:20px; }
+  }
+</style>
+<script src="libs/gsap.min.js"></script>
+<script src="libs/ScrollTrigger.min.js"></script>
+<script src="libs/ScrollToPlugin.min.js"></script>
+<script src="libs/lenis.min.js"></script>
+<style id="gsap-extras">
+  html{scroll-behavior:auto!important;}
+  /* PRELOADER */
+  #preloader{position:fixed;inset:0;z-index:99999;background:var(--warm-white);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .6s,transform .6s;}
+  #preloader.done{opacity:0;pointer-events:none;transform:scale(1.04);}
+  .pre-icon{font-size:3.5rem;animation:preRock 1.1s ease-in-out infinite;}
+  @keyframes preRock{0%,100%{transform:rotate(-18deg) scale(.88)}50%{transform:rotate(18deg) scale(1.1)}}
+  .pre-txt{font-family:'Poppins',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--croissant);}
+  .pre-bar{width:140px;height:2px;background:rgba(200,133,58,.15);border-radius:2px;overflow:hidden;}
+  .pre-fill{height:100%;width:0;background:linear-gradient(to right,var(--croissant),var(--croissant-lt));animation:preBar 1.5s ease forwards;}
+  @keyframes preBar{to{width:100%}}
+  /* SCROLL PROGRESS */
+  #scrollBar{position:fixed;top:0;left:0;z-index:9996;height:3px;width:0;background:linear-gradient(to right,var(--croissant),var(--croissant-lt),var(--butter));box-shadow:0 0 8px rgba(200,133,58,.5);}
+  /* DARK TOGGLE */
+  #darkToggle{position:fixed;bottom:28px;right:28px;z-index:500;width:46px;height:46px;border-radius:50%;background:var(--warm-white);border:1.5px solid rgba(200,133,58,.3);box-shadow:0 4px 16px rgba(90,48,16,.18);display:flex;align-items:center;justify-content:center;font-size:1.3rem;cursor:pointer;transition:transform .3s,box-shadow .3s;}
+  #darkToggle:hover{transform:scale(1.15) rotate(15deg);box-shadow:0 8px 24px rgba(90,48,16,.28);}
+  /* DARK MODE */
+  body.dark-mode{--warm-white:#1a1008;--cream:#241508;--croissant:#d4924a;--croissant-lt:#e8aa68;--caramel:#b06e2a;--butter:#4a3218;--choco:#f5ddb8;--text:#f0e0c0;--text-mid:#c8a070;--text-dim:rgba(240,200,140,.45);}
+  body.dark-mode nav{background:rgba(26,16,8,.97);}
+  body.dark-mode #hero{background:linear-gradient(150deg,#1a1008 0%,#241508 55%,#2a1a08 100%)!important;}
+  body.dark-mode .review-card,body.dark-mode .review-form-wrap,body.dark-mode .lang-modal{background:#1a1008;}
+  body.dark-mode .rf-field input,body.dark-mode .rf-field textarea{background:#241508;color:var(--text);}
+  body.dark-mode footer{background:#0d0804;}
+  /* CANVASES */
+  #flourCanvas,#confettiCanvas{position:fixed;inset:0;pointer-events:none;z-index:9990;}
+  #meshCanvas{position:fixed;inset:0;pointer-events:none;z-index:0;}
+  /* CURSOR DOTS */
+  .cdot{position:fixed;pointer-events:none;z-index:9989;border-radius:50%;background:var(--croissant);transform:translate(-50%,-50%);}
+  /* TILT SHINE */
+  .tilt-shine{position:absolute;inset:0;pointer-events:none;z-index:10;border-radius:6px;opacity:0;}
+  /* GSAP overrides */
+  .slide-left,.slide-right{opacity:1!important;transform:none!important;transition:none!important;}
+  .timeline-item::before{transition:background 0.4s,border-color 0.4s,box-shadow 0.4s;}
+  .gallery-slot{opacity:1!important;}
+  .review-card{opacity:1!important;transform:none!important;}
+  .phil-card{opacity:1!important;transform:none!important;transition:none!important;}
+  /* HERO MESH */
+  #hero-mesh{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 40% 40% at 20% 30%,rgba(240,212,154,.55) 0%,transparent 60%),
+               radial-gradient(ellipse 35% 35% at 80% 20%,rgba(200,133,58,.22) 0%,transparent 60%),
+               radial-gradient(ellipse 50% 50% at 60% 80%,rgba(248,235,200,.45) 0%,transparent 60%);
+    animation:meshPulse 8s ease-in-out infinite;}
+  @keyframes meshPulse{0%,100%{opacity:1}50%{opacity:.8}}
+  /* PASTRY TICKER */
+  .pticker{overflow:hidden;white-space:nowrap;background:var(--croissant);padding:10px 0;border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);}
+  .ptrack{display:inline-block;animation:ptScroll 24s linear infinite;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.92);}
+  .ptrack span{margin:0 32px;}
+  @keyframes ptScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  /* ticker class aliases */
+  .pastry-ticker{overflow:hidden;white-space:nowrap;background:var(--croissant);padding:8px 0;border-top:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.15);}
+  .ticker-track{display:inline-block;animation:ptScroll 18s linear infinite;font-size:1.5rem;line-height:1;}
+  .ticker-track span{margin:0 18px;display:inline-block;}
+  /* HORIZONTAL SCROLL */
+  #hscroll-section{overflow:hidden;background:linear-gradient(135deg,var(--choco) 0%,#3a1a04 100%);position:relative;}
+  .hs-track{display:flex;align-items:stretch;width:max-content;will-change:transform;}
+  .hs-panel{width:100vw;min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px;position:relative;flex-shrink:0;border-right:1px solid rgba(255,255,255,.06);}
+  .hs-num{font-size:clamp(4rem,10vw,9rem);font-weight:900;color:rgba(255,255,255,.05);position:absolute;top:40px;left:60px;pointer-events:none;font-style:italic;}
+  .hs-icon{font-size:3rem;margin-bottom:20px;opacity:0;transform:scale(0) rotate(-45deg);}
+  .hs-title{font-size:clamp(1.4rem,3vw,2.2rem);font-weight:800;color:#fff;margin-bottom:14px;text-align:center;opacity:0;transform:translateY(40px);}
+  .hs-title em{font-style:italic;font-weight:300;color:var(--croissant-lt);}
+  .hs-body{font-size:.96rem;font-weight:300;line-height:1.85;color:rgba(255,255,255,.65);max-width:420px;text-align:center;opacity:0;transform:translateY(30px);}
+  .hs-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.08);}
+  .hs-fill{height:100%;background:linear-gradient(to right,var(--croissant),var(--croissant-lt));width:0%;transition:none;box-shadow:0 0 12px rgba(200,133,58,.6);}
+  .hs-hint{position:absolute;bottom:28px;right:56px;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+  /* hscroll structural */
+  .hs-section{overflow:hidden;position:relative;}
+  .hs-sticky{min-height:100vh;padding:80px 0 40px;background:linear-gradient(135deg,var(--choco) 0%,#3a1a04 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .hs-header{text-align:center;margin-bottom:40px;}
+  .hs-header h2{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;color:#fff;line-height:1.15;}
+  .hs-header h2 em{font-style:italic;font-weight:300;color:var(--croissant-lt);}
+  .section-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--croissant-lt);display:block;margin-bottom:12px;}
+  .hs-track-wrap{position:relative;overflow:hidden;width:100vw;}
+  .hs-panel h3{font-size:clamp(1.1rem,2vw,1.6rem);font-weight:700;color:#fff;margin-bottom:12px;text-align:center;}
+  .hs-panel p{font-size:.9rem;font-weight:300;line-height:1.8;color:rgba(255,255,255,.6);max-width:400px;text-align:center;}
+  .hs-panel-img{width:180px;height:180px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:28px;border:2px solid rgba(255,255,255,.12);}
+  .hs-bar-wrap{position:absolute;bottom:0;left:0;right:0;height:5px;background:rgba(255,255,255,.12);overflow:hidden;}
+</style>
+</head>
+<body>
+
+<!-- LANGUAGE WELCOME MODAL -->
+<div id="lang-modal-overlay">
+  <div class="lang-modal" role="dialog" aria-modal="true" aria-label="Language selection">
+    <span class="modal-deco d1">🥐</span>
+    <span class="modal-deco d2">🍰</span>
+    <div class="modal-chef">
+      <img src="chef.png" alt="Ludovic Monsorez">
+    </div>
+    <p class="modal-greeting">Bonjour! Or Hello?</p>
+    <p class="modal-sub">How should I serve you today?<br><em>Comment puis-je vous servir aujourd'hui ?</em></p>
+    <div class="modal-btns">
+      <button class="modal-lang-btn english" onclick="chooseLang('en')">
+        <span class="flag">🇬🇧</span>
+        <span>Serve in <span class="pastry-icon">🍰</span> English</span>
+      </button>
+      <button class="modal-lang-btn french" onclick="chooseLang('fr')">
+        <span class="flag">🇫🇷</span>
+        <span>Servir en <span class="pastry-icon">🥐</span> Français</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- WHISK CURSOR -->
+<svg id="whisk-cursor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 84" fill="none">
+  <rect x="17.5" y="50" width="5" height="30" rx="2.5" fill="#5a3010"/>
+  <rect x="19" y="50" width="2.5" height="30" rx="1.2" fill="#7a5530" opacity="0.35"/>
+  <rect x="15" y="45" width="10" height="7" rx="2.5" fill="#c8853a"/>
+  <rect x="15" y="45" width="10" height="3.5" rx="2.5" fill="#e8aa68" opacity="0.5"/>
+  <path d="M20 45 C5 36 3 16 20 6" stroke="#c8853a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <path d="M20 45 C35 36 37 16 20 6" stroke="#c8853a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <path d="M20 45 C11 38 9 20 20 6" stroke="#e8aa68" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+  <path d="M20 45 C29 38 31 20 20 6" stroke="#e8aa68" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+  <path d="M10.5 32 Q20 29 29.5 32" stroke="#c8853a" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+  <path d="M8 22 Q20 19 32 22" stroke="#c8853a" stroke-width="1.0" stroke-linecap="round" fill="none"/>
+  <path d="M13 40 Q20 38 27 40" stroke="#e8aa68" stroke-width="1.0" stroke-linecap="round" fill="none"/>
+  <circle cx="20" cy="6" r="2.2" fill="#c8853a"/>
+</svg>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pre-icon">&#x1F950;</div>
+  <div class="pre-bar"><div class="pre-fill"></div></div>
+  <div class="pre-txt">Loading&hellip;</div>
+</div>
+<!-- SCROLL PROGRESS -->
+<div id="scrollBar"></div>
+<!-- MESH CANVAS -->
+<canvas id="meshCanvas"></canvas>
+<!-- DARK TOGGLE -->
+<button id="darkToggle" aria-label="Toggle dark mode">&#x263D;</button>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo" aria-label="L·Monsorez Home">
+    <img src="logo.jpg" alt="Ludovic Monsorez logo" class="nav-logo-img">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about" data-en="About" data-fr="À propos">About</a></li>
+    <li><a href="#story" data-en="Story" data-fr="Parcours">Story</a></li>
+    <li><a href="#creations" data-en="Creations" data-fr="Créations">Creations</a></li>
+    <li><a href="#reviews" data-en="Reviews" data-fr="Avis">Reviews</a></li>
+    <li><a href="#philosophy" data-en="Philosophy" data-fr="Philosophie">Philosophy</a></li>
+    <li><a href="contact.html" data-en="Contact" data-fr="Contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<!-- PASTRY TICKER -->
+<div class="pastry-ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>🥐</span><span>🍩</span><span>🍰</span><span>🧁</span><span>🍮</span><span>🎂</span><span>🍫</span><span>🥧</span><span>🍬</span><span>🍭</span><span>🥮</span><span>🍪</span>
+    <span>🥐</span><span>🍩</span><span>🍰</span><span>🧁</span><span>🍮</span><span>🎂</span><span>🍫</span><span>🥧</span><span>🍬</span><span>🍭</span><span>🥮</span><span>🍪</span>
+  </div>
+</div>
+<section id="hero">
+<div id="hero-mesh"></div>
+
+  <!-- freely scattered pastry items -->
+  <div class="pastry-item pi-0">🥐<span class="item-label">Croissant</span></div>
+  <div class="pastry-item pi-1">🧁<span class="item-label">Cupcake</span></div>
+  <div class="pastry-item pi-2">🍰<span class="item-label">Gâteau</span></div>
+  <div class="pastry-item pi-3">🥧<span class="item-label">Tarte</span></div>
+  <div class="pastry-item pi-4">🍫<span class="item-label">Chocolat</span></div>
+  <div class="pastry-item pi-5">🍬<span class="item-label">Macaron</span></div>
+  <div class="pastry-item pi-6">🍞<span class="item-label">Brioche</span></div>
+  <div class="pastry-item pi-7">🧇<span class="item-label">Gaufre</span></div>
+  <div class="pastry-item pi-8">🍩<span class="item-label">Beignet</span></div>
+  <div class="pastry-item pi-9">🥮<span class="item-label">Feuilleté</span></div>
+
+  <!-- centre stage -->
+  <div class="hero-stage">
+    <p class="hero-eyebrow" data-en="Pastry Chef &amp; Viennoiserie Specialist" data-fr="Chef Pâtissier &amp; Spécialiste en Viennoiserie">Pastry Chef &amp; Viennoiserie Specialist</p>
+    <div class="chef-circle">
+      <img src="chef.png" alt="Ludovic Monsorez" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block;">
+    </div>
+    <h1 class="hero-title" data-en="Crafting <em>art</em> you can taste" data-fr="Créer un <em>art</em> que l'on peut goûter">Crafting <em>art</em> you can taste</h1>
+    <p class="hero-sub" data-en="15 years crafting viennoiserie, pastry &amp; bread across London and France — from croissants to bespoke celebration cakes." data-fr="15 ans à façonner viennoiseries, pâtisseries &amp; pains entre Londres et la France — des croissants aux gâteaux de cérémonie sur mesure.">15 years crafting viennoiserie, pastry &amp; bread across London and France — from croissants to bespoke celebration cakes.</p>
+    <div class="hero-ctas">
+      <a href="#creations" class="btn-primary" data-en="View Creations" data-fr="Voir les Créations">View Creations</a>
+      <a href="contact.html" class="btn-outline" data-en="Get in Touch" data-fr="Me Contacter">Get in Touch</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img-slot slide-left">
+      <img src="about-photo.jpg" alt="Ludovic Monsorez — Pastry Chef" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;display:block;">
+    </div>
+    <div class="slide-right">
+      <p class="section-label" data-en="About Me" data-fr="À Propos">About Me</p>
+      <h2 class="section-title" data-en="A lifetime <em>devoted</em> to pastry" data-fr="Une vie <em>dédiée</em> à la pâtisserie">A lifetime <em>devoted</em> to pastry</h2>
+      <div class="divider"></div>
+      <p class="section-body" data-en="Born in France and trained in the finest pastry traditions of Lille and Tourcoing, I have spent over 15 years perfecting the art of viennoiserie, bread, and patisserie across some of London's most respected bakeries and restaurants." data-fr="Né en France et formé dans les meilleures traditions pâtissières de Lille et Tourcoing, j'ai passé plus de 15 ans à perfectionner l'art de la viennoiserie, du pain et de la pâtisserie dans certaines des boulangeries et restaurants les plus renommés de Londres.">Born in France and trained in the finest pastry traditions of Lille and Tourcoing, I have spent over 15 years perfecting the art of viennoiserie, bread, and patisserie across some of London's most respected bakeries and restaurants.</p>
+      <br>
+      <p class="section-body" data-en="From laminating croissants at dawn to building bespoke celebration cakes, my craft is rooted in precision, quality ingredients, and a deep respect for the process. Every layer tells a story — welcome to mine." data-fr="Du feuilletage des croissants à l'aube à la confection de gâteaux de cérémonie sur mesure, mon métier est ancré dans la précision, des ingrédients de qualité et un profond respect du processus. Chaque couche raconte une histoire — bienvenue dans la mienne.">From laminating croissants at dawn to building bespoke celebration cakes, my craft is rooted in precision, quality ingredients, and a deep respect for the process. Every layer tells a story — welcome to mine.</p>
+      <div class="about-stats">
+        <div><p class="stat-num">15+</p><p class="stat-label" data-en="Years of craft" data-fr="Années de métier">Years of craft</p></div>
+        <div><p class="stat-num">10+</p><p class="stat-label" data-en="Kitchens &amp; bakeries" data-fr="Cuisines &amp; boulangeries">Kitchens &amp; bakeries</p></div>
+        <div><p class="stat-num">3</p><p class="stat-label" data-en="French diplomas" data-fr="Diplômes français">French diplomas</p></div>
+      </div>
+      <a href="#creations" class="btn-primary" style="margin-top:36px;display:inline-block;" data-en="See My Work" data-fr="Voir Mon Travail">See My Work</a>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story">
+  <div class="slide-left">
+    <p class="section-label" data-en="Career Timeline" data-fr="Parcours de Carrière">Career Timeline</p>
+    <h2 class="section-title" data-en="The <em>journey</em> so far" data-fr="Le <em>chemin</em> parcouru">The <em>journey</em> so far</h2>
+  </div>
+  <div class="timeline" id="timeline">
+    <div class="timeline-line" id="timelineLine"></div>
+    <div class="timeline-item">
+      <p class="timeline-year">2008–2012</p>
+      <p class="timeline-text" data-en="<strong>Trained in France</strong> — CAP Cuisine at Lycée Michel Servet, Lille; CAP Pâtisserie at CFMA de Tourcoing. Internships at Brasserie de Paris, Restaurant Nice Espace Tween, and Planckaert Patisserie." data-fr="<strong>Formation en France</strong> — CAP Cuisine au Lycée Michel Servet, Lille ; CAP Pâtisserie au CFMA de Tourcoing. Stages à la Brasserie de Paris, au Restaurant Nice Espace Tween et à la Pâtisserie Planckaert."><strong>Trained in France</strong> — CAP Cuisine at Lycée Michel Servet, Lille; CAP Pâtisserie at CFMA de Tourcoing. Internships at Brasserie de Paris, Restaurant Nice Espace Tween, and Planckaert Patisserie.</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-year">2013–2016</p>
+      <p class="timeline-text" data-en="<strong>Pastry Chef &amp; Baker</strong> at Real Patisserie, Hove — croissants, brioche, puff pastry, quiche, and cakes. Responsible for packaging and dispatch of wholesale products." data-fr="<strong>Chef Pâtissier &amp; Boulanger</strong> chez Real Patisserie, Hove — croissants, brioches, pâte feuilletée, quiches et gâteaux. Responsable du conditionnement et de l'expédition des produits en gros."><strong>Pastry Chef &amp; Baker</strong> at Real Patisserie, Hove — croissants, brioche, puff pastry, quiche, and cakes. Responsible for packaging and dispatch of wholesale products.</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-year">2016</p>
+      <p class="timeline-text" data-en="<strong>Head of Viennoiserie</strong> at Lost in Paris, Hove — leading pastry creation, stock control, ordering, and constant development of new pastry lines." data-fr="<strong>Responsable Viennoiserie</strong> chez Lost in Paris, Hove — pilotage de la création pâtissière, gestion des stocks, commandes et développement continu de nouvelles gammes."><strong>Head of Viennoiserie</strong> at Lost in Paris, Hove — leading pastry creation, stock control, ordering, and constant development of new pastry lines.</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-year">2016–2019</p>
+      <p class="timeline-text" data-en="<strong>Pastry Chef</strong> across The Flour Pot Bakery (Brighton), The Sussex Kitchen, Longboys (Wembley), and ELAN Cafe — broad experience in artisan bread, doughnuts, cakes, and savoury pastry." data-fr="<strong>Chef Pâtissier</strong> chez The Flour Pot Bakery (Brighton), The Sussex Kitchen, Longboys (Wembley) et ELAN Cafe — large expérience en pain artisanal, beignets, gâteaux et viennoiseries salées."><strong>Pastry Chef</strong> across The Flour Pot Bakery (Brighton), The Sussex Kitchen, Longboys (Wembley), and ELAN Cafe — broad experience in artisan bread, doughnuts, cakes, and savoury pastry.</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-year">2020–2022</p>
+      <p class="timeline-text" data-en="<strong>Head of Tourier Viennoiserie</strong> at Miel Bakery, London — overseeing kitchen operations, lamination production, staff training, stock rotation, and quality standards." data-fr="<strong>Chef Tourier Viennoiserie</strong> chez Miel Bakery, Londres — supervision des opérations en cuisine, production de feuilletage, formation du personnel, rotation des stocks et standards de qualité."><strong>Head of Tourier Viennoiserie</strong> at Miel Bakery, London — overseeing kitchen operations, lamination production, staff training, stock rotation, and quality standards.</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-year">2022–2023</p>
+      <p class="timeline-text" data-en="<strong>Head Baker</strong> at Faran Custom Bakes, London — managing the full kitchen, bespoke orders, team leadership, and creating a more organised production environment." data-fr="<strong>Chef Boulanger</strong> chez Faran Custom Bakes, Londres — gestion complète de la cuisine, commandes sur mesure, direction d'équipe et mise en place d'un environnement de production plus organisé."><strong>Head Baker</strong> at Faran Custom Bakes, London — managing the full kitchen, bespoke orders, team leadership, and creating a more organised production environment.</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-year">2023–Today</p>
+      <p class="timeline-text" data-en="<strong>Viennoiserie Baker</strong> at Bread Bread Wholesale, London — high-volume hand-roll viennoiserie production using pastry roll sheeter; lamination, shaping, and scaling." data-fr="<strong>Boulanger Viennoiserie</strong> chez Bread Bread Wholesale, Londres — production à grand volume de viennoiseries façonnées à la main sur laminoir ; feuilletage, façonnage et pesée."><strong>Viennoiserie Baker</strong> at Bread Bread Wholesale, London — high-volume hand-roll viennoiserie production using pastry roll sheeter; lamination, shaping, and scaling.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HORIZONTAL SCROLL -->
+<section id="hscroll-section" class="hs-section">
+  <div class="hs-sticky">
+    <div class="hs-header">
+      <span class="section-eyebrow">The Journey</span>
+      <h2 class="hs-title">From Flour<br>to <em>Perfection</em></h2>
+    </div>
+    <div class="hs-track-wrap">
+      <div class="hs-track" id="hsTrack">
+        <div class="hs-panel">
+          <div class="hs-panel-img" style="background:linear-gradient(135deg,#d4924a22,#c8853a44);">
+            <span style="font-size:4rem;">&#x1F33E;</span>
+          </div>
+          <h3>Select Ingredients</h3>
+          <p>We source only the finest seasonal grains, farm-fresh butter, and hand-harvested vanilla pods.</p>
+        </div>
+        <div class="hs-panel">
+          <div class="hs-panel-img" style="background:linear-gradient(135deg,#c8853a22,#b0722a44);">
+            <span style="font-size:4rem;">&#x1F9F1;</span>
+          </div>
+          <h3>Crafted by Hand</h3>
+          <p>Every fold of dough, every piped rosette &mdash; shaped with patience and precision by skilled artisans.</p>
+        </div>
+        <div class="hs-panel">
+          <div class="hs-panel-img" style="background:linear-gradient(135deg,#b0722a22,#9a5e1a44);">
+            <span style="font-size:4rem;">&#x1F525;</span>
+          </div>
+          <h3>Baked to Perfection</h3>
+          <p>Stone-deck ovens, exact temperatures, and decades of baking instinct produce a flawless bake every time.</p>
+        </div>
+        <div class="hs-panel">
+          <div class="hs-panel-img" style="background:linear-gradient(135deg,#9a5e1a22,#c8853a44);">
+            <span style="font-size:4rem;">&#x1F381;</span>
+          </div>
+          <h3>Finished &amp; Presented</h3>
+          <p>Glazed, dusted, and styled &mdash; then packaged with care so your treat arrives as beautiful as it left our kitchen.</p>
+        </div>
+      </div>
+      <span class="hs-hint">Scroll to explore</span>
+    </div>
+  </div>
+  <!-- progress line — pinned to bottom of section -->
+  <div class="hs-bar-wrap">
+    <div class="hs-fill" id="hsFill"></div>
+  </div>
+</section>
+<!-- CREATIONS -->
+<section id="creations">
+  <div class="gallery-intro slide-left">
+    <p class="section-label" data-en="Portfolio" data-fr="Portfolio">Portfolio</p>
+    <h2 class="section-title" data-en="My <em>creations</em>" data-fr="Mes <em>créations</em>">My <em>creations</em></h2>
+    <div class="divider"></div>
+    <p class="section-body" data-en="A selection of pastries crafted throughout my career — each one a moment frozen in sugar, butter, and time." data-fr="Une sélection de pâtisseries créées tout au long de ma carrière — chacune, un instant figé dans le sucre, le beurre et le temps.">A selection of pastries crafted throughout my career — each one a moment frozen in sugar, butter, and time.</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-slot">
+      <img src="pastry-1.jpg" alt="Sesame Tarts" loading="lazy">
+      <div class="g-overlay"></div>
+      <div class="tilt-shine"></div>
+      <p class="g-label">Sesame Tarts</p>
+    </div>
+    <div class="gallery-slot">
+      <img src="pastry-2.jpg" alt="Black Sesame Éclairs" loading="lazy">
+      <div class="g-overlay"></div>
+      <div class="tilt-shine"></div>
+      <p class="g-label">Black Sesame Éclairs</p>
+    </div>
+    <div class="gallery-slot">
+      <img src="pastry-3.jpg" alt="Chocolate Croissants" loading="lazy">
+      <div class="g-overlay"></div>
+      <div class="tilt-shine"></div>
+      <p class="g-label">Chocolate Croissants</p>
+    </div>
+    <div class="gallery-slot">
+      <img src="pastry-4.jpg" alt="Raspberry Viennoiserie" loading="lazy">
+      <div class="g-overlay"></div>
+      <div class="tilt-shine"></div>
+      <p class="g-label">Raspberry Viennoiserie</p>
+    </div>
+    <div class="gallery-slot">
+      <img src="pastry-5.jpg" alt="Caramel Kouign-Amann" loading="lazy">
+      <div class="g-overlay"></div>
+      <div class="tilt-shine"></div>
+      <p class="g-label">Caramel Kouign-Amann</p>
+    </div>
+    <div class="gallery-slot">
+      <img src="pastry-6.jpg" alt="Strawberry Croissants" loading="lazy">
+      <div class="g-overlay"></div>
+      <div class="tilt-shine"></div>
+      <p class="g-label">Strawberry Croissants</p>
+    </div>
+    <div class="gallery-slot">
+      <img src="pastry-7.jpg" alt="Caramelised Pastries" loading="lazy">
+      <div class="g-overlay"></div>
+      <div class="tilt-shine"></div>
+      <p class="g-label">Caramelised Pastries</p>
+    </div>
+    <div class="gallery-slot">
+      <img src="pastry-8.jpg" alt="Rainbow Croissants" loading="lazy">
+      <div class="g-overlay"></div>
+      <div class="tilt-shine"></div>
+      <p class="g-label">Rainbow Croissants</p>
+    </div>
+    <div class="gallery-slot">
+      <img src="pastry-9.jpg" alt="Sesame Brioche Buns" loading="lazy">
+      <div class="g-overlay"></div>
+      <div class="tilt-shine"></div>
+      <p class="g-label">Sesame Brioche Buns</p>
+    </div>
+    <div class="gallery-slot">
+      <img src="pastry-10.jpg" alt="Blueberry Danish" loading="lazy">
+      <div class="g-overlay"></div>
+      <div class="tilt-shine"></div>
+      <p class="g-label">Blueberry Danish</p>
+    </div>
+    <div class="gallery-slot">
+      <img src="pastry-11.jpg" alt="Chocolate Scroll" loading="lazy">
+      <div class="g-overlay"></div>
+      <div class="tilt-shine"></div>
+      <p class="g-label">Chocolate Scroll</p>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="phil-layout">
+
+    <!-- LEFT: quote card -->
+    <div class="phil-card slide-left" id="philCard">
+      <p class="phil-quote" id="philQuote" data-en="Pastry is the most honest of arts — it either works or it doesn't. There is no hiding behind a reduction." data-fr="La pâtisserie est le plus honnête des arts — ça marche ou ça ne marche pas. On ne peut pas se cacher derrière une réduction.">Pastry is the most honest of arts — it either works or it doesn't. There is no hiding behind a reduction.</p>
+      <div class="phil-divider"></div>
+      <p class="phil-attr">Ludovic Monsorez</p>
+    </div>
+
+    <!-- RIGHT: tablet + phone mockups — CSS-drawn site preview (no iframe/404) -->
+    <div class="phil-devices slide-right">
+
+      <!-- TABLET -->
+      <div class="phil-tablet">
+        <div class="pd-screen">
+          <div class="mock-site">
+            <div class="mock-nav"><div class="mock-logo"></div><div class="mock-nav-links"><span></span><span></span><span></span></div></div>
+            <div class="mock-hero">
+              <div class="mock-chef-circle"></div>
+              <div class="mock-hero-text">
+                <div class="mock-line w60 bold"></div>
+                <div class="mock-line w80"></div>
+                <div class="mock-line w50"></div>
+                <div class="mock-btns"><div class="mock-btn filled"></div><div class="mock-btn outline"></div></div>
+              </div>
+              <div class="mock-pastry mp1">🥐</div>
+              <div class="mock-pastry mp2">🧁</div>
+              <div class="mock-pastry mp3">🍰</div>
+              <div class="mock-pastry mp4">🍩</div>
+            </div>
+            <div class="mock-section cream">
+              <div class="mock-line w30 accent mb8"></div>
+              <div class="mock-line w55 bold mb6"></div>
+              <div class="mock-line w70 mb4"></div>
+              <div class="mock-line w65 mb4"></div>
+              <div class="mock-line w40 mb4"></div>
+            </div>
+            <div class="mock-section white">
+              <div class="mock-line w25 accent mb8"></div>
+              <div class="mock-line w45 bold mb10"></div>
+              <div class="mock-timeline">
+                <div class="mock-tl-item"></div>
+                <div class="mock-tl-item"></div>
+                <div class="mock-tl-item"></div>
+              </div>
+            </div>
+            <div class="mock-section gallery-s">
+              <div class="mock-line w25 accent mb8"></div>
+              <div class="mock-line w40 bold mb10"></div>
+              <div class="mock-grid">
+                <div class="mock-card"></div><div class="mock-card"></div><div class="mock-card"></div>
+                <div class="mock-card"></div><div class="mock-card"></div><div class="mock-card"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pd-home-bar"></div>
+      </div>
+
+      <!-- PHONE -->
+      <div class="phil-phone">
+        <div class="pd-notch"></div>
+        <div class="pd-screen">
+          <div class="mock-site">
+            <div class="mock-nav compact"><div class="mock-logo"></div></div>
+            <div class="mock-hero compact">
+              <div class="mock-chef-circle small"></div>
+              <div class="mock-line w70 bold mb4" style="margin:0 auto;"></div>
+              <div class="mock-line w55 mb4" style="margin:0 auto;"></div>
+              <div class="mock-btns center"><div class="mock-btn filled sm"></div></div>
+              <div class="mock-pastry mp1 sm">🥐</div>
+              <div class="mock-pastry mp3 sm">🍰</div>
+            </div>
+            <div class="mock-section cream compact">
+              <div class="mock-line w30 accent mb6"></div>
+              <div class="mock-line w60 bold mb4"></div>
+              <div class="mock-line w80 mb3"></div>
+              <div class="mock-line w70 mb3"></div>
+            </div>
+            <div class="mock-section white compact">
+              <div class="mock-line w25 accent mb6"></div>
+              <div class="mock-line w55 bold mb8"></div>
+              <div class="mock-tl-item"></div>
+              <div class="mock-tl-item"></div>
+            </div>
+          </div>
+        </div>
+        <div class="pd-home-bar"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="reviews-header slide-left">
+    <p class="section-label" data-en="Reviews" data-fr="Avis">Reviews</p>
+    <h2 class="section-title" data-en="What <em>people</em> say" data-fr="Ce que <em>disent</em> les gens">What <em>people</em> say</h2>
+    <div class="divider" style="margin:20px auto 16px;"></div>
+    <p class="section-body" data-en="Kind words from colleagues, clients, and kitchens I've had the honour of working with." data-fr="Des mots bienveillants de collègues, clients et cuisines avec lesquels j'ai eu l'honneur de travailler.">Kind words from colleagues, clients, and kitchens I've had the honour of working with.</p>
+  </div>
+
+  <div class="reviews-grid" id="reviewsGrid">
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"The croissants are the best I've had outside Paris. Flaky, buttery, impossibly light."</p>
+      <div class="review-author">&mdash; Sophie M.</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"Every macaron is a tiny masterpiece. The raspberry rose flavour is transcendent."</p>
+      <div class="review-author">&mdash; James T.</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"Ordered a custom wedding cake and it exceeded every expectation. Pure artistry."</p>
+      <div class="review-author">&mdash; Clara &amp; Hugo</div>
+    </div>
+  </div>
+
+  <!-- Submit a review form -->
+  <div class="review-form-wrap slide-right">
+    <p class="review-form-title" data-en="Leave a review" data-fr="Laisser un avis">Leave a review</p>
+    <p class="review-form-sub" data-en="Worked with me or tasted my pastry? I'd love to hear from you." data-fr="Vous avez travaillé avec moi ou goûté ma pâtisserie ? J'adorerais avoir votre avis.">Worked with me or tasted my pastry? I'd love to hear from you.</p>
+    <div id="reviewForm">
+      <div class="rf-row">
+        <div class="rf-field">
+          <label data-en="Your name" data-fr="Votre nom">Your name</label>
+          <input type="text" id="rf-name" placeholder="e.g. Sophie C." maxlength="60">
+        </div>
+        <div class="rf-field">
+          <label data-en="Your role / context" data-fr="Votre rôle / contexte">Your role / context</label>
+          <input type="text" id="rf-role" placeholder="e.g. Head Chef, Client…" maxlength="60">
+        </div>
+      </div>
+      <div class="rf-field">
+        <label data-en="Rating" data-fr="Note">Rating</label>
+        <div class="star-picker" id="starPicker">
+          <span data-v="1">★</span>
+          <span data-v="2">★</span>
+          <span data-v="3">★</span>
+          <span data-v="4">★</span>
+          <span data-v="5">★</span>
+        </div>
+      </div>
+      <div class="rf-field">
+        <label data-en="Your review" data-fr="Votre avis">Your review</label>
+        <textarea id="rf-text" placeholder="Share your experience…" maxlength="400"></textarea>
+      </div>
+      <button class="rf-submit" onclick="submitReview()" data-en="Submit Review 🍰" data-fr="Envoyer l'avis 🥐">Submit Review 🍰</button>
+    </div>
+    <div class="rf-success" id="rfSuccess">
+      <div class="rf-icon">🥐</div>
+      <p id="rfSuccessMsg" data-en="Merci! Your review has been added. It means the world." data-fr="Merci ! Votre avis a été ajouté. Cela compte énormément.">Merci! Your review has been added. It means the world.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p id="footer-text" data-en='© 2025 <span>Ludovic Monsorez</span> — Pastry Chef &amp; Viennoiserie Specialist · London &nbsp;·&nbsp; <a href="contact.html">Contact Me</a>' data-fr='© 2025 <span>Ludovic Monsorez</span> — Chef Pâtissier &amp; Spécialiste en Viennoiserie · Londres &nbsp;·&nbsp; <a href="contact.html">Me Contacter</a>'>© 2025 <span>Ludovic Monsorez</span> — Pastry Chef &amp; Viennoiserie Specialist · London &nbsp;·&nbsp; <a href="contact.html">Contact Me</a></p>
+</footer>
+
+<script>
+/* ======================================================
+   GSAP + LENIS ENGINE — Ludovic Monsorez Portfolio v3
+   ====================================================== */
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+// 1. LENIS SMOOTH SCROLL
+var lenis = new Lenis({
+  duration: 1.4,
+  easing: function(t){ return Math.min(1, 1.001 - Math.pow(2, -10*t)); },
+  smoothTouch: false
+});
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add(function(time){ lenis.raf(time * 1000); });
+gsap.ticker.lagSmoothing(0);
+
+// 2. PRELOADER
+window.addEventListener('load', function(){
+  gsap.to('#preloader', { opacity:0, scale:1.04, duration:.7, delay:1.4, ease:'power2.in',
+    onComplete: function(){ var p=document.getElementById('preloader'); if(p) p.style.display='none'; }
+  });
+});
+
+// 3. SCROLL PROGRESS BAR
+gsap.to('#scrollBar', { width:'100%', ease:'none',
+  scrollTrigger:{ trigger:'body', start:'top top', end:'bottom bottom', scrub:.3 }
+});
+
+// 4. DARK MODE
+var isDark = localStorage.getItem('darkMode') === 'true';
+if(isDark) document.body.classList.add('dark-mode');
+var dtb = document.getElementById('darkToggle');
+if(dtb){
+  dtb.textContent = isDark ? '☀️' : '🍫';
+  dtb.onclick = function(){
+    isDark = !isDark;
+    document.body.classList.toggle('dark-mode', isDark);
+    localStorage.setItem('darkMode', isDark);
+    dtb.textContent = isDark ? '☀️' : '🍫';
+    gsap.fromTo(dtb, {scale:.6,rotation:-180}, {scale:1,rotation:0,duration:.5,ease:'back.out(2)'});
+  };
+}
+
+// 5. WHISK CURSOR
+var whisk = document.getElementById('whisk-cursor');
+document.addEventListener('mousemove', function(e){
+  gsap.to(whisk, { left:e.clientX, top:e.clientY, duration:.08, ease:'none', overwrite:true });
+});
+document.querySelectorAll('a, button, .gallery-slot').forEach(function(el){
+  el.addEventListener('mouseenter', function(){ document.body.classList.add('cursor-hover'); gsap.to(whisk,{scale:1.3,duration:.25,ease:'back.out(2)'}); });
+  el.addEventListener('mouseleave', function(){ document.body.classList.remove('cursor-hover'); gsap.to(whisk,{scale:1,duration:.25,ease:'back.out(2)'}); });
+});
+
+// 6. CURSOR TRAIL DOTS
+(function(){
+  var dots=[], n=10, mx=-200, my=-200;
+  for(var i=0; i<n; i++){
+    var d=document.createElement('div'); d.className='cdot';
+    var s=8-i*.65; d.style.cssText='width:'+s+'px;height:'+s+'px;';
+    document.body.appendChild(d); dots.push({el:d,x:-200,y:-200});
+  }
+  document.addEventListener('mousemove',function(e){ mx=e.clientX; my=e.clientY; });
+  (function loop(){
+    var lx=mx, ly=my;
+    for(var i=0;i<n;i++){
+      var d=dots[i], f=.38-i*.028;
+      d.x+=(lx-d.x)*f; d.y+=(ly-d.y)*f;
+      d.el.style.left=d.x+'px'; d.el.style.top=d.y+'px';
+      d.el.style.opacity=mx<0?'0':String(Math.max(0,.55-i*.05));
+      lx=d.x; ly=d.y;
+    }
+    requestAnimationFrame(loop);
+  })();
+})();
+
+// 7. FLOUR PARTICLES
+(function(){
+  var cv=document.getElementById('flourCanvas'), ctx=cv.getContext('2d'), W, H, parts=[];
+  function sz(){ W=cv.width=window.innerWidth; H=cv.height=window.innerHeight; }
+  sz(); window.addEventListener('resize',sz);
+  document.addEventListener('mousemove',function(e){
+    for(var i=0; i<2&&parts.length<50; i++)
+      parts.push({x:e.clientX+(Math.random()-.5)*18,y:e.clientY+(Math.random()-.5)*18,
+        r:Math.random()*3+1,dx:(Math.random()-.5)*1.3,dy:-(Math.random()*1.6+.4),
+        a:.65+Math.random()*.3,dec:.011+Math.random()*.013,c:Math.random()>.5?'#f0d49a':'#e8aa68'});
+  });
+  (function loop(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=parts.length-1;i>=0;i--){
+      var p=parts[i]; p.x+=p.dx; p.y+=p.dy; p.a-=p.dec; p.r*=.99;
+      if(p.a<=0){parts.splice(i,1);continue;}
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.c; ctx.globalAlpha=p.a; ctx.fill();
+    }
+    ctx.globalAlpha=1; requestAnimationFrame(loop);
+  })();
+})();
+
+// 8. HERO CINEMATIC ENTRANCE
+(function(){
+  var tl = gsap.timeline({ delay:1.7, defaults:{ease:'power3.out'} });
+  tl.fromTo('.hero-eyebrow', {opacity:0,y:30}, {opacity:1,y:0,duration:.9})
+    .fromTo('.chef-circle',  {opacity:0,scale:.5,rotation:-15}, {opacity:1,scale:1,rotation:0,duration:1.1,ease:'back.out(1.4)'}, '-=.5')
+    .fromTo('.hero-title',   {opacity:0,y:50,skewY:3}, {opacity:1,y:0,skewY:0,duration:1}, '-=.7')
+    .fromTo('.hero-sub',     {opacity:0,y:30}, {opacity:1,y:0,duration:.8}, '-=.6')
+    .fromTo('.hero-ctas',    {opacity:0,y:24,scale:.95}, {opacity:1,y:0,scale:1,duration:.8,ease:'back.out(1.2)'}, '-=.5')
+    .fromTo('.pastry-item',  {opacity:0,scale:0}, {opacity:1,scale:1,duration:.9,stagger:{each:.08,from:'random'},ease:'back.out(2)'}, '-=.4');
+})();
+
+// 9. HERO DEPTH PARALLAX
+var speeds = [.35,.28,.32,.40,.55,.50,.70,.60,.65,.75];
+document.querySelectorAll('.pastry-item').forEach(function(el,i){
+  gsap.to(el, { y:function(){ return window.innerHeight*speeds[i]; }, ease:'none',
+    scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:1.2,invalidateOnRefresh:true} });
+});
+gsap.to('#hero-mesh', { y:function(){return window.innerHeight*.35;}, ease:'none',
+  scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:1,invalidateOnRefresh:true} });
+gsap.to('.hero-stage', { y:function(){return -window.innerHeight*.12;}, ease:'none',
+  scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:1.5,invalidateOnRefresh:true} });
+
+// 10. SECTION LABEL / TITLE / BODY REVEALS
+gsap.utils.toArray('.section-label').forEach(function(el){
+  gsap.fromTo(el, {opacity:0,x:-30}, {opacity:1,x:0,duration:.7,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 92%',once:true}});
+});
+gsap.utils.toArray('.divider').forEach(function(el){
+  gsap.fromTo(el, {scaleX:0,transformOrigin:'left center'}, {scaleX:1,duration:.8,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 92%',once:true}});
+});
+gsap.utils.toArray('.section-title').forEach(function(el){
+  gsap.fromTo(el, {opacity:0,y:40,skewY:2}, {opacity:1,y:0,skewY:0,duration:.9,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+});
+gsap.utils.toArray('.section-body').forEach(function(el){
+  gsap.fromTo(el, {opacity:0,y:25}, {opacity:1,y:0,duration:.8,ease:'power2.out',
+    scrollTrigger:{trigger:el,start:'top 92%',once:true}});
+});
+
+// 11. ABOUT SECTION
+gsap.fromTo('.about-img-slot', {opacity:0,x:-80,rotation:-3}, {opacity:1,x:0,rotation:0,duration:1.2,ease:'power3.out',
+  scrollTrigger:{trigger:'#about',start:'top 80%',once:true}});
+gsap.fromTo('.about-img-slot img', {scale:1.18,y:-40}, {scale:1,y:0,ease:'none',
+  scrollTrigger:{trigger:'#about',start:'top bottom',end:'bottom top',scrub:1.8}});
+gsap.fromTo('#about .slide-right', {opacity:0,x:80}, {opacity:1,x:0,duration:1.2,ease:'power3.out',
+  scrollTrigger:{trigger:'#about',start:'top 80%',once:true}});
+
+// 12. STAT COUNTERS
+document.querySelectorAll('.stat-num').forEach(function(el){
+  var txt=el.textContent.trim(), num=parseInt(txt.replace(/\D/g,'')), suf=txt.replace(/[0-9]/g,'');
+  if(!num) return;
+  var o={v:0};
+  ScrollTrigger.create({trigger:el,start:'top 88%',once:true,onEnter:function(){
+    gsap.fromTo(el, {scale:.5,opacity:0}, {scale:1,opacity:1,duration:.6,ease:'back.out(2)'});
+    gsap.to(o, {v:num,duration:1.8,ease:'power2.out', onUpdate:function(){ el.textContent=Math.round(o.v)+suf; }});
+  }});
+});
+
+// 13. TIMELINE — DRAW LINE + REVEAL ITEMS
+var tlEl=document.getElementById('timeline'), tlLine=document.getElementById('timelineLine');
+if(tlEl && tlLine){
+  gsap.to(tlLine, {
+    height: function(){ return tlEl.scrollHeight; },
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#story',
+      start: 'top 60%',
+      end: 'bottom 70%',
+      scrub: true,
+      invalidateOnRefresh: true
+    }
+  });
+  document.querySelectorAll('.timeline-item').forEach(function(item){
+    ScrollTrigger.create({
+      trigger: item,
+      start: 'top 85%',
+      once: true,
+      onEnter: function(){ item.classList.add('visible'); }
+    });
+  });
+}
+
+// 14. HORIZONTAL SCROLL STRIP
+(function(){
+  var track=document.getElementById('hsTrack'), fill=document.getElementById('hsFill');
+  if(!track) return;
+  var tw = gsap.to(track, {
+    x:function(){ return -(track.scrollWidth - window.innerWidth); }, ease:'none',
+    scrollTrigger:{
+      trigger:'#hscroll-section', start:'top top', pin:true, scrub:1,
+      end:function(){ return '+='+(track.scrollWidth - window.innerWidth); },
+      anticipatePin:1, invalidateOnRefresh:true,
+      onUpdate:function(self){ if(fill) fill.style.width=(self.progress*100)+'%'; }
+    }
+  });
+  document.querySelectorAll('.hs-icon').forEach(function(el){
+    gsap.to(el, {opacity:1,scale:1,rotation:0,duration:.7,ease:'back.out(2)',
+      scrollTrigger:{trigger:el,containerAnimation:tw,start:'left 80%',once:true}});
+  });
+  document.querySelectorAll('.hs-title').forEach(function(el){
+    gsap.to(el, {opacity:1,y:0,duration:.7,ease:'power2.out',
+      scrollTrigger:{trigger:el,containerAnimation:tw,start:'left 75%',once:true}});
+  });
+  document.querySelectorAll('.hs-body').forEach(function(el){
+    gsap.to(el, {opacity:1,y:0,duration:.7,delay:.15,ease:'power2.out',
+      scrollTrigger:{trigger:el,containerAnimation:tw,start:'left 75%',once:true}});
+  });
+})();
+
+// 15. GALLERY — REVEAL + 3D TILT + IMAGE PARALLAX
+gsap.fromTo('.gallery-slot', {opacity:0,y:70,scale:.9}, {opacity:1,y:0,scale:1,duration:.9,
+  stagger:{each:.09,from:'start'}, ease:'power3.out',
+  scrollTrigger:{trigger:'.gallery-grid',start:'top 85%',once:true}});
+
+document.querySelectorAll('.gallery-slot').forEach(function(card){
+  var img=card.querySelector('img');
+  if(img) gsap.fromTo(img, {y:-20}, {y:20,ease:'none',
+    scrollTrigger:{trigger:card,start:'top bottom',end:'bottom top',scrub:1.5}});
+  card.addEventListener('mousemove',function(e){
+    var r=card.getBoundingClientRect();
+    var dx=(e.clientX-r.left-r.width/2)/(r.width/2);
+    var dy=(e.clientY-r.top-r.height/2)/(r.height/2);
+    gsap.to(card,{rotateY:dx*14,rotateX:-dy*14,scale:1.04,duration:.3,ease:'power2.out',transformPerspective:600,overwrite:'auto'});
+    var sh=card.querySelector('.tilt-shine');
+    if(sh){
+      sh.style.background='radial-gradient(circle at '+((e.clientX-r.left)/r.width*100).toFixed(1)+'% '+((e.clientY-r.top)/r.height*100).toFixed(1)+'%, rgba(255,255,255,.22) 0%, transparent 55%)';
+      gsap.to(sh,{opacity:1,duration:.2});
+    }
+  });
+  card.addEventListener('mouseleave',function(){
+    gsap.to(card,{rotateY:0,rotateX:0,scale:1,duration:.5,ease:'power3.out'});
+    var sh=card.querySelector('.tilt-shine'); if(sh) gsap.to(sh,{opacity:0,duration:.3});
+  });
+});
+
+// 16. PHILOSOPHY QUOTE + DEVICES
+(function(){
+  var card=document.getElementById('philCard'), quote=document.getElementById('philQuote');
+  if(!card||!quote) return;
+  quote.innerHTML=quote.textContent.trim().split(' ').map(function(w){
+    return '<span class="phil-word" style="opacity:0;transform:translateY(16px);display:inline-block;">'+w+'</span>';
+  }).join(' ');
+  gsap.fromTo(card, {opacity:0,y:60,scale:.93,rotationY:-8}, {opacity:1,y:0,scale:1,rotationY:0,duration:1.1,ease:'power3.out',
+    scrollTrigger:{trigger:card,start:'top 80%',once:true,
+      onEnter:function(){
+        card.classList.add('visible');
+        gsap.to(card.querySelectorAll('.phil-word'),{opacity:1,y:0,duration:.5,stagger:.06,ease:'power2.out',delay:.3});
+      }
+    }
+  });
+  gsap.to('.phil-tablet',{y:-20,ease:'none',scrollTrigger:{trigger:'#philosophy',start:'top bottom',end:'bottom top',scrub:1.5}});
+  gsap.to('.phil-phone', {y:30, ease:'none',scrollTrigger:{trigger:'#philosophy',start:'top bottom',end:'bottom top',scrub:2}});
+})();
+
+// 17. REVIEWS REVEAL
+gsap.fromTo('.review-card', {opacity:0,y:60,scale:.93}, {opacity:1,y:0,scale:1,duration:.8,
+  stagger:.12,ease:'power3.out',scrollTrigger:{trigger:'.reviews-grid',start:'top 85%',once:true}});
+gsap.fromTo('.review-form-wrap', {opacity:0,y:50}, {opacity:1,y:0,duration:1,ease:'power3.out',
+  scrollTrigger:{trigger:'.review-form-wrap',start:'top 88%',once:true}});
+
+// 18. MAGNETIC BUTTONS
+document.querySelectorAll('.btn-primary, .btn-outline, .nav-links li:last-child a').forEach(function(btn){
+  btn.addEventListener('mousemove',function(e){
+    var r=btn.getBoundingClientRect();
+    gsap.to(btn,{x:(e.clientX-r.left-r.width/2)*.35,y:(e.clientY-r.top-r.height/2)*.35,duration:.3,ease:'power2.out',overwrite:'auto'});
+  });
+  btn.addEventListener('mouseleave',function(){ gsap.to(btn,{x:0,y:0,duration:.5,ease:'elastic.out(1,.4)'}); });
+});
+
+// 19. CONFETTI BURST
+(function(){
+  var cv=document.getElementById('confettiCanvas'), ctx=cv.getContext('2d'), W, H, pieces=[], run=false;
+  var cols=['#c8853a','#e8aa68','#f0d49a','#a05c1a','#fff8ee'];
+  var em=['🥐','🧁','🍰','🍫','🍩'];
+  function sz(){ W=cv.width=window.innerWidth; H=cv.height=window.innerHeight; }
+  sz(); window.addEventListener('resize',sz);
+  function burst(ox,oy){
+    for(var i=0;i<70;i++){
+      var a=Math.random()*Math.PI*2, sp=Math.random()*10+2;
+      pieces.push({x:ox,y:oy,dx:Math.cos(a)*sp,dy:Math.sin(a)*sp-5,
+        r:Math.random()*5+2,col:cols[~~(Math.random()*cols.length)],
+        rot:Math.random()*360,rs:(Math.random()-.5)*10,al:1,gv:.28,
+        emoji:Math.random()>.78?em[~~(Math.random()*em.length)]:null});
+    }
+    if(!run){run=true;go();}
+  }
+  function go(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=pieces.length-1;i>=0;i--){
+      var p=pieces[i]; p.x+=p.dx; p.y+=p.dy; p.dy+=p.gv; p.rot+=p.rs; p.al-=.016;
+      if(p.al<=0||p.y>H+20){pieces.splice(i,1);continue;}
+      ctx.save(); ctx.globalAlpha=p.al; ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+      if(p.emoji){ctx.font='18px serif';ctx.fillText(p.emoji,-9,9);}
+      else{ctx.fillStyle=p.col;ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*.55);}
+      ctx.restore();
+    }
+    if(pieces.length) requestAnimationFrame(go);
+    else{run=false;ctx.clearRect(0,0,W,H);}
+  }
+  document.querySelectorAll('.btn-primary').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      burst(e.clientX,e.clientY);
+      gsap.fromTo(btn,{scale:.88},{scale:1,duration:.5,ease:'elastic.out(1.2,.4)'});
+    });
+  });
+  window.burstConfetti=burst;
+})();
+
+// 20. NAV ACTIVE LINK
+var navAs=document.querySelectorAll('.nav-links a[href^="#"]');
+var sects=document.querySelectorAll('section[id]');
+window.addEventListener('scroll',function(){
+  var sy=window.scrollY+130, cur='';
+  sects.forEach(function(s){ if(s.offsetTop<=sy) cur=s.id; });
+  navAs.forEach(function(a){ a.classList.toggle('active',a.getAttribute('href')==='#'+cur); });
+},{passive:true});
+
+// 21. LENIS NAV CLICKS
+document.querySelectorAll('a[href^="#"]').forEach(function(link){
+  link.addEventListener('click',function(e){
+    var t=document.querySelector(link.getAttribute('href'));
+    if(t){ e.preventDefault(); lenis.scrollTo(t,{offset:-80,duration:1.6}); }
+  });
+});
+
+// 22. MOBILE NAV
+var nt=document.getElementById('navToggle'), nl=document.querySelector('.nav-links');
+if(nt&&nl){
+  nt.addEventListener('click',function(){
+    var open=nl.classList.toggle('nav-open');
+    nt.setAttribute('aria-expanded',open?'true':'false');
+    if(open) gsap.fromTo(nl,{opacity:0,y:-10},{opacity:1,y:0,duration:.3,ease:'power2.out'});
+  });
+  document.addEventListener('click',function(e){
+    if(!nt.contains(e.target)&&!nl.contains(e.target)){
+      nl.classList.remove('nav-open'); nt.setAttribute('aria-expanded','false');
+    }
+  });
+}
+
+// 23. LANGUAGE MODAL
+var currentLang='en';
+gsap.fromTo('.lang-modal',{scale:.7,opacity:0,y:30},{scale:1,opacity:1,y:0,duration:.65,ease:'back.out(1.8)',delay:.3});
+
+function chooseLang(lang){
+  currentLang=lang;
+  var ov=document.getElementById('lang-modal-overlay');
+  gsap.to(ov,{opacity:0,scale:.96,duration:.45,ease:'power2.in',
+    onComplete:function(){ ov.style.display='none'; }});
+  applyLang(lang);
+}
+function applyLang(lang){
+  document.documentElement.lang=lang==='fr'?'fr':'en';
+  document.querySelectorAll('[data-en][data-fr]').forEach(function(el){
+    var t=el.getAttribute('data-'+lang); if(t!==null) el.innerHTML=t;
+  });
+  var pq=document.getElementById('philQuote');
+  if(pq){
+    pq.innerHTML=pq.textContent.trim().split(' ').map(function(w){
+      return '<span class="phil-word" style="opacity:0;transform:translateY(16px);display:inline-block;">'+w+'</span>';
+    }).join(' ');
+    gsap.to(pq.querySelectorAll('.phil-word'),{opacity:1,y:0,duration:.5,stagger:.06,ease:'power2.out'});
+  }
+}
+window.chooseLang=chooseLang;
+
+// 24. STAR PICKER
+var sel=5;
+document.querySelectorAll('#starPicker span').forEach(function(s){
+  s.classList.add('lit');
+  s.addEventListener('mouseover',function(){
+    var v=parseInt(s.getAttribute('data-v'));
+    document.querySelectorAll('#starPicker span').forEach(function(x){ x.classList.toggle('lit',parseInt(x.getAttribute('data-v'))<=v); });
+  });
+  s.addEventListener('mouseleave',function(){
+    document.querySelectorAll('#starPicker span').forEach(function(x){ x.classList.toggle('lit',parseInt(x.getAttribute('data-v'))<=sel); });
+  });
+  s.addEventListener('click',function(){
+    sel=parseInt(s.getAttribute('data-v'));
+    gsap.fromTo(s,{scale:.6,rotation:-30},{scale:1,rotation:0,duration:.4,ease:'back.out(2)'});
+  });
+});
+
+// 25. SUBMIT REVIEW
+function submitReview(){
+  var name=document.getElementById('rf-name').value.trim();
+  var role=document.getElementById('rf-role').value.trim();
+  var text=document.getElementById('rf-text').value.trim();
+  if(!name||!text){
+    gsap.fromTo('.review-form-wrap',{x:-8},{x:0,duration:.5,ease:'elastic.out(3,.3)'});
+    alert(currentLang==='fr'?'Veuillez renseigner votre nom et votre avis.':'Please enter your name and review.');
+    return;
+  }
+  var stars=''; for(var i=0;i<sel;i++) stars+='★';
+  var ini=name.split(' ').map(function(w){return w[0];}).join('').toUpperCase().slice(0,2);
+  var card=document.createElement('div'); card.className='review-card';
+  card.innerHTML='<div class="review-stars">'+stars+'</div>'
+    +'<p class="review-text">&ldquo;'+text+'&rdquo;</p>'
+    +'<div class="review-author"><div class="review-avatar">'+ini+'</div>'
+    +'<div><p class="review-name">'+name+'</p><p class="review-role">'+(role||'Client')+'</p></div></div>';
+  document.getElementById('reviewsGrid').appendChild(card);
+  gsap.fromTo(card,{opacity:0,y:40,scale:.88},{opacity:1,y:0,scale:1,duration:.7,ease:'back.out(1.4)'});
+  document.getElementById('reviewForm').style.display='none';
+  var su=document.getElementById('rfSuccess'); su.style.display='block';
+  gsap.fromTo(su,{opacity:0,y:20},{opacity:1,y:0,duration:.6,ease:'power2.out'});
+  var msg=su.querySelector('#rfSuccessMsg');
+  if(msg) msg.innerHTML=msg.getAttribute('data-'+currentLang);
+  if(window.burstConfetti) window.burstConfetti(window.innerWidth/2,window.innerHeight*.4);
+}
+window.submitReview=submitReview;
+
+// 26. FOOTER
+gsap.fromTo('footer',{opacity:0,y:30},{opacity:1,y:0,duration:1,ease:'power2.out',
+  scrollTrigger:{trigger:'footer',start:'top 95%',once:true}});
+
+// 27. REFRESH ON RESIZE
+window.addEventListener('resize',function(){ ScrollTrigger.refresh(); });
+
+console.log('%c🥐 GSAP + Lenis ready','color:#c8853a;font-weight:900;font-size:14px');
+</script>
+</body>
+</html>
