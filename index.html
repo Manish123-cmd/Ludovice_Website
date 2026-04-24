@@ -391,7 +391,7 @@
     width:200px; height:200px; border-radius:50%; overflow:hidden;
     border:5px solid var(--butter);
     box-shadow: 0 0 0 10px rgba(240,212,154,0.38), 0 0 0 18px rgba(200,133,58,0.13), 0 20px 56px rgba(90,48,16,0.20);
-    background:var(--cream); margin-bottom:16px;
+    background:var(--cream); margin-bottom:40px;
   }
   .chef-circle img { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
 
@@ -422,71 +422,51 @@
   }
 
   /* ── BURST-OUT ENTRANCE ── */
-  @keyframes burst0 {
-    0%   { top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
     15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
     55%  { top:18%; left:4%;   transform:translate(0,0) scale(1); }
     77%  { transform:translate(4px,-14px) rotate(3deg); }
     100% { top:18%; left:4%;   transform:translate(0,0) rotate(-3deg); }
   }
-  @keyframes burst1 {
-    0%   { top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
     15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
     55%  { top:20%; left:22%;  transform:translate(0,0) scale(1); }
     77%  { transform:translate(-6px,-10px) rotate(-2deg); }
     100% { top:20%; left:22%;  transform:translate(0,0) rotate(5deg); }
   }
-  @keyframes burst2 {
-    0%   { top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
     15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
     55%  { top:20%; right:22%; left:auto; transform:translate(0,0) scale(1); }
     77%  { transform:translate(5px,-18px) rotate(4deg); }
     100% { top:20%; right:22%; left:auto; transform:translate(0,0) rotate(-6deg); }
   }
-  @keyframes burst3 {
-    0%   { top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
     15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
     55%  { top:18%; right:4%;  left:auto; transform:translate(0,0) scale(1); }
     77%  { transform:translate(-4px,-12px) rotate(-5deg); }
     100% { top:18%; right:4%;  left:auto; transform:translate(0,0) rotate(2deg); }
   }
-  @keyframes burst4 {
-    0%   { top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
     15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
     55%  { top:48%;  left:2%;   transform:translate(0,0) scale(1); }
     77%  { transform:translate(6px,-16px) rotate(6deg); }
     100% { top:48%;  left:2%;   transform:translate(0,0) rotate(-4deg); }
   }
-  @keyframes burst5 {
-    0%   { top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
     15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
     55%  { top:48%;  right:2%;  left:auto; transform:translate(0,0) scale(1); }
     77%  { transform:translate(-5px,-11px) rotate(-3deg); }
     100% { top:48%;  right:2%;  left:auto; transform:translate(0,0) rotate(7deg); }
   }
-  @keyframes burst6 {
-    0%   { bottom:auto; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
     15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
     55%  { bottom:6%; top:auto; left:4%;  transform:translate(0,0) scale(1); }
     77%  { transform:translate(3px,-15px) rotate(5deg); }
     100% { bottom:6%; top:auto; left:4%;  transform:translate(0,0) rotate(-2deg); }
   }
-  @keyframes burst7 {
-    0%   { bottom:auto; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
     15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
     55%  { bottom:6%; top:auto; left:20%; transform:translate(0,0) scale(1); }
     77%  { transform:translate(-7px,-13px) rotate(-4deg); }
     100% { bottom:6%; top:auto; left:20%; transform:translate(0,0) rotate(4deg); }
   }
-  @keyframes burst8 {
-    0%   { bottom:auto; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
     15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
     55%  { bottom:6%; top:auto; right:20%; left:auto; transform:translate(0,0) scale(1); }
     77%  { transform:translate(5px,-10px) rotate(3deg); }
     100% { bottom:6%; top:auto; right:20%; left:auto; transform:translate(0,0) rotate(-5deg); }
   }
-  @keyframes burst9 {
-    0%   { bottom:auto; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.4); opacity:0; }
     15%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
     55%  { bottom:6%; top:auto; right:4%;  left:auto; transform:translate(0,0) scale(1); }
     77%  { transform:translate(-4px,-17px) rotate(-6deg); }
@@ -494,27 +474,13 @@
   }
 
   /* Ongoing float */
-  @keyframes f0 { 0%,100%{transform:translate(0,0) rotate(-3deg)} 50%{transform:translate(4px,-14px)  rotate(3deg)}  }
-  @keyframes f1 { 0%,100%{transform:translate(0,0) rotate(5deg)}  50%{transform:translate(-6px,-10px) rotate(-2deg)} }
-  @keyframes f2 { 0%,100%{transform:translate(0,0) rotate(-6deg)} 50%{transform:translate(5px,-18px)  rotate(4deg)}  }
-  @keyframes f3 { 0%,100%{transform:translate(0,0) rotate(2deg)}  50%{transform:translate(-4px,-12px) rotate(-5deg)} }
-  @keyframes f4 { 0%,100%{transform:translate(0,0) rotate(-4deg)} 50%{transform:translate(6px,-16px)  rotate(6deg)}  }
-  @keyframes f5 { 0%,100%{transform:translate(0,0) rotate(7deg)}  50%{transform:translate(-5px,-11px) rotate(-3deg)} }
-  @keyframes f6 { 0%,100%{transform:translate(0,0) rotate(-2deg)} 50%{transform:translate(3px,-15px)  rotate(5deg)}  }
-  @keyframes f7 { 0%,100%{transform:translate(0,0) rotate(4deg)}  50%{transform:translate(-7px,-13px) rotate(-4deg)} }
-  @keyframes f8 { 0%,100%{transform:translate(0,0) rotate(-5deg)} 50%{transform:translate(5px,-10px)  rotate(3deg)}  }
-  @keyframes f9 { 0%,100%{transform:translate(0,0) rotate(3deg)}  50%{transform:translate(-4px,-17px) rotate(-6deg)} }
+  /* Float handled by GSAP — no CSS keyframes needed */
 
-  .pi-0 { top:18%; left:4%;        animation: burst0 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.1s both, f0 5.2s ease-in-out 1.6s infinite; }
-  .pi-1 { top:20%; left:22%;       animation: burst1 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.2s both, f1 6.1s ease-in-out 1.7s infinite; }
-  .pi-2 { top:20%; right:22%;      animation: burst2 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.3s both, f2 5.8s ease-in-out 1.8s infinite; }
-  .pi-3 { top:18%; right:4%;       animation: burst3 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.4s both, f3 6.5s ease-in-out 1.9s infinite; }
-  .pi-4 { top:48%; left:2%;        animation: burst4 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.5s both, f4 5.5s ease-in-out 2.0s infinite; }
-  .pi-5 { top:48%; right:2%;       animation: burst5 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.6s both, f5 6.3s ease-in-out 2.1s infinite; }
-  .pi-6 { bottom:6%; left:4%;      animation: burst6 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.7s both, f6 5.9s ease-in-out 2.2s infinite; }
-  .pi-7 { bottom:6%; left:20%;     animation: burst7 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.8s both, f7 6.7s ease-in-out 2.3s infinite; }
-  .pi-8 { bottom:6%; right:20%;    animation: burst8 1.5s cubic-bezier(0.34,1.56,0.64,1) 0.9s both, f8 5.4s ease-in-out 2.4s infinite; }
-  .pi-9 { bottom:6%; right:4%;     animation: burst9 1.5s cubic-bezier(0.34,1.56,0.64,1) 1.0s both, f9 6.0s ease-in-out 2.5s infinite; }
+  /* Pastry items: hidden until language chosen, then GSAP places + floats them */
+  .pi-0,.pi-1,.pi-2,.pi-3,.pi-4,.pi-5,.pi-6,.pi-7,.pi-8,.pi-9 {
+    opacity:0;
+    transform:scale(0);
+  }
 
   /* ABOUT */
   #about { background:var(--cream); }
@@ -1030,6 +996,8 @@
   .gallery-slot{opacity:1!important;}
   .review-card{opacity:1!important;transform:none!important;}
   .phil-card{opacity:1!important;transform:none!important;transition:none!important;}
+  /* Hero stage hidden until language chosen */
+  .hero-eyebrow,.chef-circle,.hero-title,.hero-sub,.hero-ctas{opacity:0;}
   /* HERO MESH */
   #hero-mesh{position:absolute;inset:0;z-index:0;pointer-events:none;
     background:radial-gradient(ellipse 40% 40% at 20% 30%,rgba(240,212,154,.55) 0%,transparent 60%),
@@ -1049,26 +1017,26 @@
   /* HORIZONTAL SCROLL */
   #hscroll-section{overflow:hidden;background:linear-gradient(135deg,var(--choco) 0%,#3a1a04 100%);position:relative;}
   .hs-track{display:flex;align-items:stretch;width:max-content;will-change:transform;}
-  .hs-panel{width:100vw;min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px;position:relative;flex-shrink:0;border-right:1px solid rgba(255,255,255,.06);}
-  .hs-num{font-size:clamp(4rem,10vw,9rem);font-weight:900;color:rgba(255,255,255,.05);position:absolute;top:40px;left:60px;pointer-events:none;font-style:italic;}
-  .hs-icon{font-size:3rem;margin-bottom:20px;opacity:0;transform:scale(0) rotate(-45deg);}
-  .hs-title{font-size:clamp(1.4rem,3vw,2.2rem);font-weight:800;color:#fff;margin-bottom:14px;text-align:center;opacity:0;transform:translateY(40px);}
+  .hs-panel{width:100vw;min-height:50vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 60px;position:relative;flex-shrink:0;border-right:1px solid rgba(255,255,255,.06);}
+  .hs-num{font-size:clamp(3rem,7vw,6rem);font-weight:900;color:rgba(255,255,255,.05);position:absolute;top:20px;left:40px;pointer-events:none;font-style:italic;}
+  .hs-icon{font-size:2.2rem;margin-bottom:16px;opacity:1;transform:none;}
+  .hs-title{font-size:clamp(1.4rem,3vw,2.2rem);font-weight:800;color:#fff;margin-bottom:14px;text-align:center;opacity:1;transform:none;}
   .hs-title em{font-style:italic;font-weight:300;color:var(--croissant-lt);}
-  .hs-body{font-size:.96rem;font-weight:300;line-height:1.85;color:rgba(255,255,255,.65);max-width:420px;text-align:center;opacity:0;transform:translateY(30px);}
+  .hs-body{font-size:.96rem;font-weight:300;line-height:1.85;color:rgba(255,255,255,.65);max-width:420px;text-align:center;opacity:1;transform:none;}
   .hs-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.08);}
   .hs-fill{height:100%;background:linear-gradient(to right,var(--croissant),var(--croissant-lt));width:0%;transition:none;box-shadow:0 0 12px rgba(200,133,58,.6);}
   .hs-hint{position:absolute;bottom:28px;right:56px;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);}
   /* hscroll structural */
   .hs-section{overflow:hidden;position:relative;}
-  .hs-sticky{min-height:100vh;padding:80px 0 40px;background:linear-gradient(135deg,var(--choco) 0%,#3a1a04 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;}
-  .hs-header{text-align:center;margin-bottom:40px;}
-  .hs-header h2{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;color:#fff;line-height:1.15;}
+  .hs-sticky{min-height:50vh;padding:40px 0 20px;background:linear-gradient(135deg,var(--choco) 0%,#3a1a04 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .hs-header{text-align:center;margin-bottom:24px;}
+  .hs-header h2{font-size:clamp(1.5rem,3.5vw,2.4rem);font-weight:800;color:#fff;line-height:1.15;}
   .hs-header h2 em{font-style:italic;font-weight:300;color:var(--croissant-lt);}
   .section-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--croissant-lt);display:block;margin-bottom:12px;}
   .hs-track-wrap{position:relative;overflow:hidden;width:100vw;}
-  .hs-panel h3{font-size:clamp(1.1rem,2vw,1.6rem);font-weight:700;color:#fff;margin-bottom:12px;text-align:center;}
-  .hs-panel p{font-size:.9rem;font-weight:300;line-height:1.8;color:rgba(255,255,255,.6);max-width:400px;text-align:center;}
-  .hs-panel-img{width:180px;height:180px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:28px;border:2px solid rgba(255,255,255,.12);}
+  .hs-panel h3{font-size:clamp(1rem,1.8vw,1.4rem);font-weight:700;color:#fff;margin-bottom:10px;text-align:center;opacity:1;}
+  .hs-panel p{font-size:.85rem;font-weight:300;line-height:1.7;color:rgba(255,255,255,.7);max-width:380px;text-align:center;opacity:1;}
+  .hs-panel-img{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;border:2px solid rgba(255,255,255,.12);}
   .hs-bar-wrap{position:absolute;bottom:0;left:0;right:0;height:5px;background:rgba(255,255,255,.12);overflow:hidden;}
 </style>
 </head>
@@ -1080,7 +1048,7 @@
     <span class="modal-deco d1">🥐</span>
     <span class="modal-deco d2">🍰</span>
     <div class="modal-chef">
-      <img src="chef.png" alt="Ludovic Monsorez">
+      <img src="Assests/chef.png" alt="Ludovic Monsorez">
     </div>
     <p class="modal-greeting">Bonjour! Or Hello?</p>
     <p class="modal-sub">How should I serve you today?<br><em>Comment puis-je vous servir aujourd'hui ?</em></p>
@@ -1128,7 +1096,7 @@
 <!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo" aria-label="L·Monsorez Home">
-    <img src="logo.jpg" alt="Ludovic Monsorez logo" class="nav-logo-img">
+    <img src="Assests/logo.jpg" alt="Ludovic Monsorez logo" class="nav-logo-img">
   </a>
   <ul class="nav-links">
     <li><a href="#about" data-en="About" data-fr="À propos">About</a></li>
@@ -1167,7 +1135,7 @@
   <div class="hero-stage">
     <p class="hero-eyebrow" data-en="Pastry Chef &amp; Viennoiserie Specialist" data-fr="Chef Pâtissier &amp; Spécialiste en Viennoiserie">Pastry Chef &amp; Viennoiserie Specialist</p>
     <div class="chef-circle">
-      <img src="chef.png" alt="Ludovic Monsorez" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block;">
+      <img src="Assests/chef.png" alt="Ludovic Monsorez" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block;">
     </div>
     <h1 class="hero-title" data-en="Crafting <em>art</em> you can taste" data-fr="Créer un <em>art</em> que l'on peut goûter">Crafting <em>art</em> you can taste</h1>
     <p class="hero-sub" data-en="15 years crafting viennoiserie, pastry &amp; bread across London and France — from croissants to bespoke celebration cakes." data-fr="15 ans à façonner viennoiseries, pâtisseries &amp; pains entre Londres et la France — des croissants aux gâteaux de cérémonie sur mesure.">15 years crafting viennoiserie, pastry &amp; bread across London and France — from croissants to bespoke celebration cakes.</p>
@@ -1183,7 +1151,7 @@
 <section id="about">
   <div class="about-grid">
     <div class="about-img-slot slide-left">
-      <img src="about-photo.jpg" alt="Ludovic Monsorez — Pastry Chef" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;display:block;">
+      <img src="Assests/about-photo.jpg" alt="Ludovic Monsorez — Pastry Chef" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;display:block;">
     </div>
     <div class="slide-right">
       <p class="section-label" data-en="About Me" data-fr="À Propos">About Me</p>
@@ -1252,28 +1220,28 @@
       <div class="hs-track" id="hsTrack">
         <div class="hs-panel">
           <div class="hs-panel-img" style="background:linear-gradient(135deg,#d4924a22,#c8853a44);">
-            <span style="font-size:4rem;">&#x1F33E;</span>
+            <span style="font-size:2.8rem;">&#x1F33E;</span>
           </div>
           <h3>Select Ingredients</h3>
           <p>We source only the finest seasonal grains, farm-fresh butter, and hand-harvested vanilla pods.</p>
         </div>
         <div class="hs-panel">
           <div class="hs-panel-img" style="background:linear-gradient(135deg,#c8853a22,#b0722a44);">
-            <span style="font-size:4rem;">&#x1F9F1;</span>
+            <span style="font-size:2.8rem;">&#x1F9F1;</span>
           </div>
           <h3>Crafted by Hand</h3>
           <p>Every fold of dough, every piped rosette &mdash; shaped with patience and precision by skilled artisans.</p>
         </div>
         <div class="hs-panel">
           <div class="hs-panel-img" style="background:linear-gradient(135deg,#b0722a22,#9a5e1a44);">
-            <span style="font-size:4rem;">&#x1F525;</span>
+            <span style="font-size:2.8rem;">&#x1F525;</span>
           </div>
           <h3>Baked to Perfection</h3>
           <p>Stone-deck ovens, exact temperatures, and decades of baking instinct produce a flawless bake every time.</p>
         </div>
         <div class="hs-panel">
           <div class="hs-panel-img" style="background:linear-gradient(135deg,#9a5e1a22,#c8853a44);">
-            <span style="font-size:4rem;">&#x1F381;</span>
+            <span style="font-size:2.8rem;">&#x1F381;</span>
           </div>
           <h3>Finished &amp; Presented</h3>
           <p>Glazed, dusted, and styled &mdash; then packaged with care so your treat arrives as beautiful as it left our kitchen.</p>
@@ -1297,55 +1265,55 @@
   </div>
   <div class="gallery-grid">
     <div class="gallery-slot">
-      <img src="pastry-1.jpg" alt="Banana Sesame & Caramel Tart" loading="lazy">
+      <img src="Assests/pastry-1.jpg" alt="Banana Sesame & Caramel Tart" loading="lazy">
       <div class="g-overlay"></div>
       <div class="tilt-shine"></div>
       <p class="g-label">Banana Sesame & Caramel Tart</p>
     </div>
     <div class="gallery-slot">
-      <img src="pastry-2.jpg" alt="Black Sesame & Raspberry Tarts" loading="lazy">
+      <img src="Assests/pastry-2.jpg" alt="Black Sesame & Raspberry Tarts" loading="lazy">
       <div class="g-overlay"></div>
       <div class="tilt-shine"></div>
       <p class="g-label">Black Sesame & Raspberry Tarts</p>
     </div>
     <div class="gallery-slot">
-      <img src="pastry-3.jpg" alt="Black Forest Danish" loading="lazy">
+      <img src="Assests/pastry-3.jpg" alt="Black Forest Danish" loading="lazy">
       <div class="g-overlay"></div>
       <div class="tilt-shine"></div>
       <p class="g-label">Black Forest Danish</p>
     </div>
     <div class="gallery-slot">
-      <img src="pastry-4.jpg" alt="Peanut Butter Raspberry Sumac" loading="lazy">
+      <img src="Assests/pastry-4.jpg" alt="Peanut Butter Raspberry Sumac" loading="lazy">
       <div class="g-overlay"></div>
       <div class="tilt-shine"></div>
       <p class="g-label">Peanut Butter Raspberry Sumac</p>
     </div>
     <div class="gallery-slot">
-      <img src="pastry-6.jpg" alt="Strawberry Cheesecake Croissants" loading="lazy">
+      <img src="Assests/pastry-6.jpg" alt="Strawberry Cheesecake Croissants" loading="lazy">
       <div class="g-overlay"></div>
       <div class="tilt-shine"></div>
       <p class="g-label">Strawberry Cheesecake Croissants</p>
     </div>
     <div class="gallery-slot">
-      <img src="pastry-7.jpg" alt="AlmondPear & Tonaka Danish" loading="lazy">
+      <img src="Assests/pastry-7.jpg" alt="AlmondPear & Tonaka Danish" loading="lazy">
       <div class="g-overlay"></div>
       <div class="tilt-shine"></div>
       <p class="g-label">AlmondPear & Tonaka Danish</p>
     </div>
     <div class="gallery-slot">
-      <img src="pastry-8.jpg" alt="Chirstmas Gianduja Bow" loading="lazy">
+      <img src="Assests/pastry-8.jpg" alt="Chirstmas Gianduja Bow" loading="lazy">
       <div class="g-overlay"></div>
       <div class="tilt-shine"></div>
       <p class="g-label">Chirstmas Gianduja Bow</p>
     </div>
     <div class="gallery-slot">
-      <img src="pastry-9.jpg" alt="Burger Buns" loading="lazy">
+      <img src="Assests/pastry-9.jpg" alt="Burger Buns" loading="lazy">
       <div class="g-overlay"></div>
       <div class="tilt-shine"></div>
       <p class="g-label">Burger Buns</p>
     </div>
     <div class="gallery-slot">
-      <img src="pastry-10.jpg" alt="Blueberry & Thyme Danish" loading="lazy">
+      <img src="Assests/pastry-10.jpg" alt="Blueberry & Thyme Danish" loading="lazy">
       <div class="g-overlay"></div>
       <div class="tilt-shine"></div>
       <p class="g-label">Blueberry & Thyme Danish</p>
@@ -1596,7 +1564,11 @@ document.querySelectorAll('a, button, .gallery-slot').forEach(function(el){
 
 // 7. FLOUR PARTICLES
 (function(){
-  var cv=document.getElementById('flourCanvas'), ctx=cv.getContext('2d'), W, H, parts=[];
+  var cv=document.getElementById('flourCanvas');
+  if(!cv){ cv=document.createElement('canvas'); cv.id='flourCanvas';
+    cv.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:9990;';
+    document.body.appendChild(cv); }
+  var ctx=cv.getContext('2d'), W, H, parts=[];
   function sz(){ W=cv.width=window.innerWidth; H=cv.height=window.innerHeight; }
   sz(); window.addEventListener('resize',sz);
   document.addEventListener('mousemove',function(e){
@@ -1617,15 +1589,13 @@ document.querySelectorAll('a, button, .gallery-slot').forEach(function(el){
   })();
 })();
 
-// 8. HERO CINEMATIC ENTRANCE
+// 8. HERO CINEMATIC ENTRANCE — now triggered by chooseLang() after language selection
+// (See section 23 — chooseLang fires the tl timeline once modal closes)
 (function(){
-  var tl = gsap.timeline({ delay:1.7, defaults:{ease:'power3.out'} });
-  tl.fromTo('.hero-eyebrow', {opacity:0,y:30}, {opacity:1,y:0,duration:.9})
-    .fromTo('.chef-circle',  {opacity:0,scale:.5,rotation:-15}, {opacity:1,scale:1,rotation:0,duration:1.1,ease:'back.out(1.4)'}, '-=.5')
-    .fromTo('.hero-title',   {opacity:0,y:50,skewY:3}, {opacity:1,y:0,skewY:0,duration:1}, '-=.7')
-    .fromTo('.hero-sub',     {opacity:0,y:30}, {opacity:1,y:0,duration:.8}, '-=.6')
-    .fromTo('.hero-ctas',    {opacity:0,y:24,scale:.95}, {opacity:1,y:0,scale:1,duration:.8,ease:'back.out(1.2)'}, '-=.5')
-    .fromTo('.pastry-item',  {opacity:0,scale:0}, {opacity:1,scale:1,duration:.9,stagger:{each:.08,from:'random'},ease:'back.out(2)'}, '-=.4');
+  // Hero stage hidden until language chosen — GSAP reveals after lang pick
+  gsap.set(['.hero-eyebrow','.chef-circle','.hero-title','.hero-sub','.hero-ctas'], {opacity:0, y:30});
+  // Icons hidden until lang chosen — position set by GSAP in chooseLang()
+  gsap.set('.pastry-item', {opacity:0, scale:0});
 })();
 
 // 9. HERO DEPTH PARALLAX
@@ -1713,17 +1683,17 @@ if(tlEl && tlLine){
       onUpdate:function(self){ if(fill) fill.style.width=(self.progress*100)+'%'; }
     }
   });
-  document.querySelectorAll('.hs-icon').forEach(function(el){
-    gsap.to(el, {opacity:1,scale:1,rotation:0,duration:.7,ease:'back.out(2)',
-      scrollTrigger:{trigger:el,containerAnimation:tw,start:'left 80%',once:true}});
-  });
-  document.querySelectorAll('.hs-title').forEach(function(el){
-    gsap.to(el, {opacity:1,y:0,duration:.7,ease:'power2.out',
-      scrollTrigger:{trigger:el,containerAnimation:tw,start:'left 75%',once:true}});
-  });
-  document.querySelectorAll('.hs-body').forEach(function(el){
-    gsap.to(el, {opacity:1,y:0,duration:.7,delay:.15,ease:'power2.out',
-      scrollTrigger:{trigger:el,containerAnimation:tw,start:'left 75%',once:true}});
+  // Panel content — animate with containerAnimation scrub
+  document.querySelectorAll('.hs-panel').forEach(function(panel){
+    var img = panel.querySelector('.hs-panel-img');
+    var h3  = panel.querySelector('h3');
+    var p   = panel.querySelector('p');
+    if(img) gsap.fromTo(img,{opacity:0,scale:.7},{opacity:1,scale:1,duration:.6,ease:'back.out(1.8)',
+      scrollTrigger:{trigger:panel,containerAnimation:tw,start:'left 85%',once:true}});
+    if(h3)  gsap.fromTo(h3, {opacity:0,y:20},{opacity:1,y:0,duration:.5,ease:'power2.out',
+      scrollTrigger:{trigger:panel,containerAnimation:tw,start:'left 80%',once:true}});
+    if(p)   gsap.fromTo(p,  {opacity:0,y:15},{opacity:1,y:0,duration:.5,delay:.1,ease:'power2.out',
+      scrollTrigger:{trigger:panel,containerAnimation:tw,start:'left 80%',once:true}});
   });
 })();
 
@@ -1873,7 +1843,96 @@ function chooseLang(lang){
   currentLang=lang;
   var ov=document.getElementById('lang-modal-overlay');
   gsap.to(ov,{opacity:0,scale:.96,duration:.45,ease:'power2.in',
-    onComplete:function(){ ov.style.display='none'; }});
+    onComplete:function(){
+      ov.style.display='none';
+      /* ── Trigger pastry burst from center on language selection ── */
+      var hero = document.getElementById('hero');
+      if(hero && !hero.classList.contains('lang-chosen')){
+        hero.classList.add('lang-chosen');
+        /* Run GSAP hero entrance now that language is chosen */
+        var tl = gsap.timeline({ delay:0.15, defaults:{ease:'power3.out'} });
+        tl.fromTo('.hero-eyebrow', {opacity:0,y:30}, {opacity:1,y:0,duration:.9})
+          .fromTo('.chef-circle',  {opacity:0,scale:.5,rotation:-15}, {opacity:1,scale:1,rotation:0,duration:1.1,ease:'back.out(1.4)'}, '-=.5')
+          .fromTo('.hero-title',   {opacity:0,y:50,skewY:3}, {opacity:1,y:0,skewY:0,duration:1}, '-=.7')
+          .fromTo('.hero-sub',     {opacity:0,y:30}, {opacity:1,y:0,duration:.8}, '-=.6')
+          .fromTo('.hero-ctas',    {opacity:0,y:24,scale:.95}, {opacity:1,y:0,scale:1,duration:.8,ease:'back.out(1.2)'}, '-=.5');
+        /* ── GSAP Burst + Float ──
+           Step 1: All icons start at hero center (scale 0, invisible)
+           Step 2: Each flies out to its corner with elastic overshoot
+           Step 3: onComplete → infinite sine yoyo float from that spot */
+        var icons = document.querySelectorAll('.pastry-item');
+        var heroEl = document.getElementById('hero');
+        var hW = heroEl.offsetWidth, hH = heroEl.offsetHeight;
+
+        /* Final resting positions as % of hero size (converted to px for GSAP) */
+        var finalPos = [
+          {top:'18%',  left:'4%',   bottom:'auto', right:'auto'},
+          {top:'20%',  left:'22%',  bottom:'auto', right:'auto'},
+          {top:'20%',  left:'auto', bottom:'auto', right:'22%'},
+          {top:'18%',  left:'auto', bottom:'auto', right:'4%'},
+          {top:'48%',  left:'2%',   bottom:'auto', right:'auto'},
+          {top:'48%',  left:'auto', bottom:'auto', right:'2%'},
+          {top:'auto', left:'4%',   bottom:'6%',   right:'auto'},
+          {top:'auto', left:'20%',  bottom:'6%',   right:'auto'},
+          {top:'auto', left:'auto', bottom:'6%',   right:'20%'},
+          {top:'auto', left:'auto', bottom:'6%',   right:'4%'}
+        ];
+        var floatDurs = [3.2,3.8,3.5,4.0,3.3,3.7,3.6,4.1,3.4,3.9];
+
+        icons.forEach(function(el, i){
+          var p = finalPos[i];
+
+          /* Step 1: Place at hero center, invisible + tiny */
+          gsap.set(el, {
+            position:'absolute',
+            top:'50%', left:'50%',
+            right:'auto', bottom:'auto',
+            xPercent:-50, yPercent:-50,
+            opacity:0, scale:0, rotation:0
+          });
+
+          /* Step 2: Burst out to final position */
+          gsap.set(el, { opacity:1 }, { delay: 0.05 + i*0.06 });
+
+          var delay = 0.05 + i * 0.07;
+          var tl = gsap.timeline({ delay: delay });
+
+          tl
+          /* Pop to visible */
+          .to(el, {
+            scale:1.2, opacity:1, duration:0.25, ease:'power2.out'
+          })
+          /* Fly out to final spot */
+          .to(el, {
+            top:    p.top,
+            left:   p.left,
+            right:  p.right,
+            bottom: p.bottom,
+            xPercent: 0,
+            yPercent: 0,
+            scale:  1.1,
+            rotation: (i%2===0 ? 12 : -12),
+            duration: 0.65,
+            ease:'power3.out'
+          })
+          /* Settle with slight bounce */
+          .to(el, {
+            scale:1, rotation:0,
+            duration:0.4, ease:'back.out(2)'
+          })
+          /* Start infinite float immediately after settle */
+          .to(el, {
+            y: -14,
+            duration: floatDurs[i],
+            ease:'sine.inOut',
+            repeat:-1,
+            yoyo:true
+          });
+        });
+        /* Burst confetti */
+        setTimeout(function(){ if(window.burstConfetti) window.burstConfetti(window.innerWidth/2,window.innerHeight/2); }, 200);
+      }
+    }});
   applyLang(lang);
 }
 function applyLang(lang){
@@ -1943,7 +2002,164 @@ gsap.fromTo('footer',{opacity:0,y:30},{opacity:1,y:0,duration:1,ease:'power2.out
 // 27. REFRESH ON RESIZE
 window.addEventListener('resize',function(){ ScrollTrigger.refresh(); });
 
-console.log('%c🥐 GSAP + Lenis ready','color:#c8853a;font-weight:900;font-size:14px');
+
+// ═══════════════════════════════════════════════════════
+//  EXTENDED SCROLL TRIGGER ANIMATIONS — every section
+// ═══════════════════════════════════════════════════════
+
+// ── PASTRY TICKER: slide in from left on first scroll ──
+gsap.fromTo('.pastry-ticker', {opacity:0,y:-20}, {opacity:1,y:0,duration:.7,ease:'power2.out',
+  scrollTrigger:{trigger:'.pastry-ticker',start:'top 98%',once:true}});
+
+// ── ABOUT SECTION: staggered stat boxes ──
+gsap.fromTo('.about-stats > div',
+  {opacity:0, y:40, scale:.85},
+  {opacity:1, y:0, scale:1, duration:.7, stagger:.14, ease:'back.out(1.6)',
+   scrollTrigger:{trigger:'.about-stats', start:'top 88%', once:true}});
+
+// About image subtle scale-in
+gsap.fromTo('.about-img-slot',
+  {clipPath:'inset(0 100% 0 0)'},
+  {clipPath:'inset(0 0% 0 0)', duration:1.1, ease:'power3.inOut',
+   scrollTrigger:{trigger:'#about', start:'top 75%', once:true}});
+
+// ── STORY SECTION: header words ──
+gsap.fromTo('#story .section-label',
+  {opacity:0, x:-40, letterSpacing:'0.38em'},
+  {opacity:1, x:0, letterSpacing:'0.18em', duration:.9, ease:'power3.out',
+   scrollTrigger:{trigger:'#story', start:'top 80%', once:true}});
+
+// Timeline items — cascade in with stagger
+gsap.fromTo('.timeline-item',
+  {opacity:0, x:-50, scale:.96},
+  {opacity:1, x:0, scale:1, duration:.75, stagger:.12, ease:'power3.out',
+   scrollTrigger:{trigger:'#timeline', start:'top 80%', once:true}});
+
+// ── HORIZONTAL SCROLL SECTION header ──
+gsap.fromTo('.hs-header',
+  {opacity:0, y:60, scale:.94},
+  {opacity:1, y:0, scale:1, duration:1, ease:'power3.out',
+   scrollTrigger:{trigger:'#hscroll-section', start:'top 80%', once:true}});
+
+// ── CREATIONS SECTION: gallery intro ──
+gsap.fromTo('.gallery-intro .section-label',
+  {opacity:0, y:20, x:-20},
+  {opacity:1, y:0, x:0, duration:.7, ease:'power3.out',
+   scrollTrigger:{trigger:'.gallery-intro', start:'top 88%', once:true}});
+
+gsap.fromTo('.gallery-intro .section-title',
+  {opacity:0, y:35, skewX:-2},
+  {opacity:1, y:0, skewX:0, duration:.9, ease:'power3.out',
+   scrollTrigger:{trigger:'.gallery-intro', start:'top 86%', once:true}});
+
+// Gallery slots — wave stagger from bottom
+gsap.fromTo('.gallery-slot',
+  {opacity:0, y:70, scale:.88, rotateX:8},
+  {opacity:1, y:0, scale:1, rotateX:0, duration:.85,
+   stagger:{each:.08, from:'start', grid:'auto'},
+   ease:'power3.out',
+   scrollTrigger:{trigger:'.gallery-grid', start:'top 85%', once:true}});
+
+// ── PHILOSOPHY SECTION ──
+// Background parallax — pseudo-elements can't be targeted by GSAP directly,
+// so we parallax the section itself with a subtle Y shift instead
+gsap.to('#philosophy', {backgroundPositionY:'30%', ease:'none',
+  scrollTrigger:{trigger:'#philosophy', start:'top bottom', end:'bottom top', scrub:2}});
+
+// Phil card words reveal
+gsap.fromTo('#philCard .phil-attr',
+  {opacity:0, y:12, letterSpacing:'0.32em'},
+  {opacity:1, y:0, letterSpacing:'0.16em', duration:.6, ease:'power2.out',
+   scrollTrigger:{trigger:'#philCard', start:'top 78%', once:true}});
+
+// Device mockups staggered entrance
+gsap.fromTo('.phil-tablet',
+  {opacity:0, x:60, rotateY:-20, scale:.88},
+  {opacity:1, x:0, rotateY:10, scale:1, duration:1.1, ease:'power3.out',
+   scrollTrigger:{trigger:'.phil-devices', start:'top 80%', once:true}});
+
+gsap.fromTo('.phil-phone',
+  {opacity:0, x:80, rotateY:-25, scale:.85},
+  {opacity:1, x:-22, rotateY:-7, scale:1, duration:1.2, delay:.15, ease:'power3.out',
+   scrollTrigger:{trigger:'.phil-devices', start:'top 80%', once:true}});
+
+// ── REVIEWS SECTION ──
+gsap.fromTo('.reviews-header .section-title',
+  {opacity:0, y:30, scale:.97},
+  {opacity:1, y:0, scale:1, duration:.9, ease:'power3.out',
+   scrollTrigger:{trigger:'.reviews-header', start:'top 85%', once:true}});
+
+// Review cards — fan-in from below
+gsap.fromTo('.review-card',
+  {opacity:0, y:60, rotation:function(i){ return i%2===0?-3:3; }, scale:.92},
+  {opacity:1, y:0, rotation:0, scale:1, duration:.75, stagger:.13, ease:'back.out(1.3)',
+   scrollTrigger:{trigger:'.reviews-grid', start:'top 85%', once:true}});
+
+// Review form — slide from right
+gsap.fromTo('.review-form-wrap',
+  {opacity:0, x:60, scale:.96},
+  {opacity:1, x:0, scale:1, duration:1, ease:'power3.out',
+   scrollTrigger:{trigger:'.review-form-wrap', start:'top 88%', once:true}});
+
+// Form fields stagger in
+gsap.fromTo('.rf-field',
+  {opacity:0, y:20},
+  {opacity:1, y:0, duration:.5, stagger:.08, ease:'power2.out',
+   scrollTrigger:{trigger:'.review-form-wrap', start:'top 85%', once:true}});
+
+// ── FOOTER ──
+gsap.fromTo('footer',
+  {opacity:0, y:30, scale:.98},
+  {opacity:1, y:0, scale:1, duration:1, ease:'power2.out',
+   scrollTrigger:{trigger:'footer', start:'top 95%', once:true}});
+
+// Footer text letter-space transition
+gsap.fromTo('footer p',
+  {opacity:0, letterSpacing:'0.18em'},
+  {opacity:1, letterSpacing:'0.05em', duration:.9, ease:'power2.out',
+   scrollTrigger:{trigger:'footer', start:'top 92%', once:true}});
+
+// ── SECTION DIVIDERS: draw left→right ──
+gsap.utils.toArray('.divider').forEach(function(el){
+  gsap.fromTo(el,
+    {scaleX:0, transformOrigin:'left center', opacity:0},
+    {scaleX:1, opacity:1, duration:.9, ease:'power3.inOut',
+     scrollTrigger:{trigger:el, start:'top 92%', once:true}});
+});
+
+// ── SECTION LABELS: fly-in with line expand ──
+gsap.utils.toArray('.section-label').forEach(function(el){
+  gsap.fromTo(el,
+    {opacity:0, x:-28, letterSpacing:'0.38em'},
+    {opacity:1, x:0, letterSpacing:'0.18em', duration:.75, ease:'power3.out',
+     scrollTrigger:{trigger:el, start:'top 92%', once:true}});
+});
+
+// ── SECTION TITLES: skew-fade ──
+gsap.utils.toArray('.section-title').forEach(function(el){
+  gsap.fromTo(el,
+    {opacity:0, y:38, skewY:2},
+    {opacity:1, y:0, skewY:0, duration:.85, ease:'power3.out',
+     scrollTrigger:{trigger:el, start:'top 88%', once:true}});
+});
+
+// ── SECTION BODY TEXT: reveal up ──
+gsap.utils.toArray('.section-body').forEach(function(el){
+  gsap.fromTo(el,
+    {opacity:0, y:22},
+    {opacity:1, y:0, duration:.8, ease:'power2.out',
+     scrollTrigger:{trigger:el, start:'top 92%', once:true}});
+});
+
+// ── HORIZONTAL SCROLL: panel content animated via containerAnimation (see section 14) ──
+
+// ── NAV: subtle scale entrance on load ──
+gsap.fromTo('nav',
+  {y:-60, opacity:0},
+  {y:0, opacity:1, duration:.9, ease:'power3.out', delay:.3});
+
+console.log('%c🎂 ScrollTrigger sections wired!','color:#c8853a;font-weight:900;font-size:13px');
+
 </script>
 </body>
 </html>
