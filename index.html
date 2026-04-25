@@ -990,6 +990,64 @@
   .cdot{position:fixed;pointer-events:none;z-index:9989;border-radius:50%;background:var(--croissant);transform:translate(-50%,-50%);}
   /* TILT SHINE */
   .tilt-shine{position:absolute;inset:0;pointer-events:none;z-index:10;border-radius:6px;opacity:0;}
+
+  /* ── CATEGORY TABS ── */
+  .cat-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 40px 0 36px;
+  }
+  .cat-tab {
+    background: transparent;
+    border: 2px solid rgba(200,133,58,0.35);
+    color: rgba(255,255,255,0.6);
+    font-family: var(--sans);
+    font-size: .82rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 10px 26px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all .3s ease;
+  }
+  .cat-tab:hover {
+    border-color: var(--croissant);
+    color: var(--croissant);
+    transform: translateY(-2px);
+  }
+  .cat-tab.active {
+    background: var(--croissant);
+    border-color: var(--croissant);
+    color: #1a0a00;
+    font-weight: 800;
+    box-shadow: 0 6px 24px rgba(200,133,58,0.35);
+  }
+  /* ── CATEGORY PANELS ── */
+  .cat-panel {
+    display: none;
+    animation: catFadeIn .45s ease;
+  }
+  .cat-panel.active { display: block; }
+  @keyframes catFadeIn {
+    from { opacity:0; transform:translateY(16px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  /* Empty placeholder */
+  .cat-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    gap: 16px;
+    color: rgba(255,255,255,0.3);
+  }
+  .cat-empty span { font-size: 3rem; opacity:.4; }
+  .cat-empty p { font-size: .95rem; letter-spacing:.08em; }
+
   /* GSAP overrides */
   .slide-left,.slide-right{opacity:1!important;transform:none!important;transition:none!important;}
   .timeline-item::before{transition:background 0.4s,border-color 0.4s,box-shadow 0.4s;}
@@ -1261,62 +1319,83 @@
     <p class="section-label" data-en="Portfolio" data-fr="Portfolio">Portfolio</p>
     <h2 class="section-title" data-en="My <em>creations</em>" data-fr="Mes <em>créations</em>">My <em>creations</em></h2>
     <div class="divider"></div>
-    <p class="section-body" data-en="A selection of pastries crafted throughout my career — each one a moment frozen in sugar, butter, and time." data-fr="Une sélection de pâtisseries créées tout au long de ma carrière — chacune, un instant figé dans le sucre, le beurre et le temps.">A selection of pastries crafted throughout my career — each one a moment frozen in sugar, butter, and time.</p>
+    <p class="section-body" data-en="A selection of work crafted throughout my career — each one a moment frozen in flour, butter, and time." data-fr="Une sélection de créations tout au long de ma carrière — chacune, un instant figé dans la farine, le beurre et le temps.">A selection of work crafted throughout my career — each one a moment frozen in flour, butter, and time.</p>
   </div>
-  <div class="gallery-grid">
-    <div class="gallery-slot">
-      <img src="Assests/pastry-1.jpg" alt="Banana Sesame & Caramel Tart" loading="lazy">
-      <div class="g-overlay"></div>
-      <div class="tilt-shine"></div>
-      <p class="g-label">Banana Sesame & Caramel Tart</p>
+
+  <!-- CATEGORY TABS -->
+  <div class="cat-tabs">
+    <button class="cat-tab active" data-cat="bread" data-en="🍞 Bread" data-fr="🍞 Pain">🍞 Bread</button>
+    <button class="cat-tab" data-cat="cake" data-en="🎂 Cake" data-fr="🎂 Gâteau">🎂 Cake</button>
+    <button class="cat-tab" data-cat="artwork" data-en="🎨 Artwork" data-fr="🎨 Artwork">🎨 Artwork</button>
+    <button class="cat-tab" data-cat="savoury" data-en="🥐 Savoury" data-fr="🥐 Salé">🥐 Savoury</button>
+    <button class="cat-tab" data-cat="sweets" data-en="🍫 Sweets" data-fr="🍫 Sucreries">🍫 Sweets</button>
+  </div>
+
+  <!-- BREAD -->
+  <div class="cat-panel active" id="cat-bread">
+    <div class="gallery-grid">
+      <div class="gallery-slot">
+        <img src="Assests/Bread/IMG_20191029_112925.jpg" alt="Sesame Burger Buns" loading="lazy">
+        <div class="g-overlay"></div><div class="tilt-shine"></div>
+        <p class="g-label">Sesame Burger Buns</p>
+      </div>
+      <div class="gallery-slot">
+        <img src="Assests/Bread/IMG_20210122_085104.jpg" alt="Sourdough Loaves" loading="lazy">
+        <div class="g-overlay"></div><div class="tilt-shine"></div>
+        <p class="g-label">Sourdough Loaves</p>
+      </div>
+      <div class="gallery-slot">
+        <img src="Assests/Bread/20230303_094424.jpg" alt="Sourdough Crumb" loading="lazy">
+        <div class="g-overlay"></div><div class="tilt-shine"></div>
+        <p class="g-label">Sourdough Open Crumb</p>
+      </div>
+      <div class="gallery-slot">
+        <img src="Assests/Bread/20220701_083237.jpg" alt="Scored Sourdough Batards" loading="lazy">
+        <div class="g-overlay"></div><div class="tilt-shine"></div>
+        <p class="g-label">Scored Sourdough Bâtards</p>
+      </div>
+      <div class="gallery-slot">
+        <img src="Assests/Bread/20211119_063220.jpg" alt="Fermented Levain Dough" loading="lazy">
+        <div class="g-overlay"></div><div class="tilt-shine"></div>
+        <p class="g-label">Fermented Levain</p>
+      </div>
+      <div class="gallery-slot">
+        <img src="Assests/Bread/IMG_20191101_084155.jpg" alt="Multigrain Rolls" loading="lazy">
+        <div class="g-overlay"></div><div class="tilt-shine"></div>
+        <p class="g-label">Multigrain Rolls</p>
+      </div>
     </div>
-    <div class="gallery-slot">
-      <img src="Assests/pastry-2.jpg" alt="Black Sesame & Raspberry Tarts" loading="lazy">
-      <div class="g-overlay"></div>
-      <div class="tilt-shine"></div>
-      <p class="g-label">Black Sesame & Raspberry Tarts</p>
+  </div>
+
+  <!-- CAKE (placeholder — images coming) -->
+  <div class="cat-panel" id="cat-cake">
+    <div class="cat-empty">
+      <span>🎂</span>
+      <p data-en="Cake photos coming soon…" data-fr="Photos de gâteaux bientôt…">Cake photos coming soon…</p>
     </div>
-    <div class="gallery-slot">
-      <img src="Assests/pastry-3.jpg" alt="Black Forest Danish" loading="lazy">
-      <div class="g-overlay"></div>
-      <div class="tilt-shine"></div>
-      <p class="g-label">Black Forest Danish</p>
+  </div>
+
+  <!-- ARTWORK (placeholder) -->
+  <div class="cat-panel" id="cat-artwork">
+    <div class="cat-empty">
+      <span>🎨</span>
+      <p data-en="Artwork photos coming soon…" data-fr="Photos d'artwork bientôt…">Artwork photos coming soon…</p>
     </div>
-    <div class="gallery-slot">
-      <img src="Assests/pastry-4.jpg" alt="Peanut Butter Raspberry Sumac" loading="lazy">
-      <div class="g-overlay"></div>
-      <div class="tilt-shine"></div>
-      <p class="g-label">Peanut Butter Raspberry Sumac</p>
+  </div>
+
+  <!-- SAVOURY (placeholder) -->
+  <div class="cat-panel" id="cat-savoury">
+    <div class="cat-empty">
+      <span>🥐</span>
+      <p data-en="Savoury photos coming soon…" data-fr="Photos salées bientôt…">Savoury photos coming soon…</p>
     </div>
-    <div class="gallery-slot">
-      <img src="Assests/pastry-6.jpg" alt="Strawberry Cheesecake Croissants" loading="lazy">
-      <div class="g-overlay"></div>
-      <div class="tilt-shine"></div>
-      <p class="g-label">Strawberry Cheesecake Croissants</p>
-    </div>
-    <div class="gallery-slot">
-      <img src="Assests/pastry-7.jpg" alt="AlmondPear & Tonaka Danish" loading="lazy">
-      <div class="g-overlay"></div>
-      <div class="tilt-shine"></div>
-      <p class="g-label">AlmondPear & Tonaka Danish</p>
-    </div>
-    <div class="gallery-slot">
-      <img src="Assests/pastry-8.jpg" alt="Chirstmas Gianduja Bow" loading="lazy">
-      <div class="g-overlay"></div>
-      <div class="tilt-shine"></div>
-      <p class="g-label">Chirstmas Gianduja Bow</p>
-    </div>
-    <div class="gallery-slot">
-      <img src="Assests/pastry-9.jpg" alt="Burger Buns" loading="lazy">
-      <div class="g-overlay"></div>
-      <div class="tilt-shine"></div>
-      <p class="g-label">Burger Buns</p>
-    </div>
-    <div class="gallery-slot">
-      <img src="Assests/pastry-10.jpg" alt="Blueberry & Thyme Danish" loading="lazy">
-      <div class="g-overlay"></div>
-      <div class="tilt-shine"></div>
-      <p class="g-label">Blueberry & Thyme Danish</p>
+  </div>
+
+  <!-- SWEETS (placeholder) -->
+  <div class="cat-panel" id="cat-sweets">
+    <div class="cat-empty">
+      <span>🍫</span>
+      <p data-en="Sweets photos coming soon…" data-fr="Photos sucrées bientôt…">Sweets photos coming soon…</p>
     </div>
   </div>
 </section>
@@ -2157,6 +2236,36 @@ gsap.utils.toArray('.section-body').forEach(function(el){
 gsap.fromTo('nav',
   {y:-60, opacity:0},
   {y:0, opacity:1, duration:.9, ease:'power3.out', delay:.3});
+
+
+// ── CATEGORY TAB SWITCHING ──
+(function(){
+  document.querySelectorAll('.cat-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var cat = this.dataset.cat;
+      // Update active tab
+      document.querySelectorAll('.cat-tab').forEach(function(t){ t.classList.remove('active'); });
+      this.classList.add('active');
+      // Show matching panel
+      document.querySelectorAll('.cat-panel').forEach(function(p){ p.classList.remove('active'); });
+      document.getElementById('cat-' + cat).classList.add('active');
+      // Re-trigger ScrollTrigger for newly visible slots
+      ScrollTrigger.refresh();
+      // Animate new gallery slots in
+      gsap.fromTo('#cat-' + cat + ' .gallery-slot',
+        {opacity:0, y:40, scale:.94},
+        {opacity:1, y:0, scale:1, duration:.6, stagger:.07, ease:'power3.out'}
+      );
+    });
+  });
+  // Animate initial bread tab on load
+  setTimeout(function(){
+    gsap.fromTo('#cat-bread .gallery-slot',
+      {opacity:0, y:40, scale:.94},
+      {opacity:1, y:0, scale:1, duration:.6, stagger:.08, ease:'power3.out'}
+    );
+  }, 300);
+})();
 
 console.log('%c🎂 ScrollTrigger sections wired!','color:#c8853a;font-weight:900;font-size:13px');
 
